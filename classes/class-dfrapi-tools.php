@@ -31,7 +31,7 @@ if ( ! class_exists( 'Dfrapi_Tools' ) ) {
 		}
 		
 		function admin_notice() {
-			if ( $_GET['settings-updated'] == true && $this->key == $_GET['page'] ) {
+			if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] == true && $this->key == $_GET['page'] ) {
 				echo '<div class="updated"><p>';
 				_e( 'Updated!', DFRAPI_DOMAIN );
 				echo '</p></div>';

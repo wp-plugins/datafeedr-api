@@ -34,7 +34,7 @@ if ( ! class_exists( 'Dfrapi_Configuration' ) ) {
 		}
 	
 		function admin_notice() {
-			if ( $_GET['settings-updated'] == true && 'dfrapi' == $_GET['page'] ) {
+			if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] == true && 'dfrapi' == $_GET['page'] ) {
 				echo '<div class="updated"><p>';
 				_e( 'Configuration successfully updated!', DFRAPI_DOMAIN );
 				echo '</p></div>';

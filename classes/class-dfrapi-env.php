@@ -30,7 +30,7 @@ if ( ! class_exists( 'Dfrapi_Env' ) ) {
 			}
 		}
 
-		function api_keys_exist() {
+		static function api_keys_exist() {
 			
 			$configuration = (array) get_option( 'dfrapi_configuration' );
 			$access_id = false;
@@ -51,7 +51,7 @@ if ( ! class_exists( 'Dfrapi_Env' ) ) {
 			return false;
 		}
 	
-		function network_is_selected() {
+		static function network_is_selected() {
 			$networks = (array) get_option( 'dfrapi_networks' );
 			if ( !empty( $networks['ids'] ) ) {
 				return true;
@@ -59,7 +59,7 @@ if ( ! class_exists( 'Dfrapi_Env' ) ) {
 			return false;
 		}
 	
-		function merchant_is_selected() {
+		static function merchant_is_selected() {
 			$merchants = (array) get_option( 'dfrapi_merchants' );
 			if ( !empty( $merchants['ids'] ) ) {
 				return true;
@@ -67,7 +67,7 @@ if ( ! class_exists( 'Dfrapi_Env' ) ) {
 			return false;
 		}
 		
-		function usage_over_90_percent() {
+		static function usage_over_90_percent() {
 			$percentage = dfrapi_get_api_usage_percentage();
 			if ( $percentage >= 90 ) {
 				return true;
@@ -75,7 +75,7 @@ if ( ! class_exists( 'Dfrapi_Env' ) ) {
 			return false;
 		}
 	
-		function missing_affiliate_ids() {
+		static function missing_affiliate_ids() {
 			$networks = get_option( 'dfrapi_networks', array() );
 			if ( !empty( $networks ) ) {
 				foreach ( $networks['ids'] as $network ) {
