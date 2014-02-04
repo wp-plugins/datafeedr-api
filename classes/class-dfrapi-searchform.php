@@ -471,8 +471,9 @@ class Dfrapi_SearchForm
         }
         $show = ($index == 0); // if none shown, show the first
         foreach($fieldMap as $field) {
-            if(!isset($fieldUsed[$field['name']])) {
-                $form .= $this->renderRow($field, $index++, $defaults[$field['name']], $show);
+            $name = $field['name'];
+            if(!isset($fieldUsed[$name])) {
+                $form .= $this->renderRow($field, $index++, isset($defaults[$name]) ? $defaults[$name] : null, $show);
                 $show = FALSE;
             }
         }
