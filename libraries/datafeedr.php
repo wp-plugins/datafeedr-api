@@ -3,7 +3,7 @@
 /**
  * Datafeedr Api Client Library.
  *
- * @version 0.1b.5940
+ * @version 0.1b.6544
  * @copyright Datafeedr 2007 ~ 2013 - All Rights Reserved
  *
  * @mainpage
@@ -33,9 +33,11 @@
  *
 **/
 
+if(!class_exists('DatafeedrApi', false)) {
+
 /**
  * Datafeedr API core class.
-**/
+ **/
 class DatafeedrApi
 {
     protected $_accessId;
@@ -52,7 +54,9 @@ class DatafeedrApi
     const SORT_ASCENDING  = +1;
 
     const DEFAULT_URL = 'http://api.datafeedr.com';
-    const DEFAULT_TIMEOUT = 5;
+    const DEFAULT_TIMEOUT = 30;
+
+    const VERSION = '0.1b.6544';
 
     /**
      * Constructor.
@@ -78,11 +82,12 @@ class DatafeedrApi
             2 => 'DatafeedrAuthenticationError',
             3 => 'DatafeedrLimitExceededError',
             4 => 'DatafeedrQueryError',
+            7 => 'DatafeedrExternalError',
             9 => 'DatafeedrError',
         );
 
         $this->_url = self::DEFAULT_URL;
-        $this->_timeout = $timeout ? $ $timeout : self::DEFAULT_TIMEOUT;
+        $this->_timeout = $timeout ? $timeout : self::DEFAULT_TIMEOUT;
         $this->_returnObjects = $returnObjects;
 
         switch($transport) {
@@ -225,6 +230,24 @@ class DatafeedrApi
     }
 
     /**
+     * Return the list of Zanox merchant ids ("zmids").
+     *
+     * @param  int|array  $merchantId  Merchant id or an array of merchant ids.
+     * @param  int        $adspaceId   Zanox adspace Id.
+     * @param  string     $connectId   Zanox connection Id.
+     * @return array
+     *
+    **/
+    public function getZanoxMerchantIds($merchantId, $adspaceId, $connectId) {
+        $request = array();
+        $request['merchant_ids'] = $this->_intarray($merchantId);
+        $request['adspace_id'] = $adspaceId;
+        $request['connect_id'] = $connectId;
+        $response = $this->apiCall('zanox_merchant_ids', $request);
+        return $this->_get($response, 'zanox_merchant_ids');
+    }
+
+    /**
      * Create a new DatafeedrSearchRequest object.
      *
      * @return DatafeedrSearchRequest
@@ -242,6 +265,16 @@ class DatafeedrApi
     **/
     public function amazonSearchRequest($awsAccessKeyId,  $awsSecretKey, $awsAssociateTag, $locale="US") {
         return new DatafeedrAmazonSearchRequest($this, $awsAccessKeyId,  $awsSecretKey, $awsAssociateTag, $locale);
+    }
+
+    /**
+     * Create a new DatafeedrAmazonLookupRequest object.
+     *
+     * @return DatafeedrAmazonLookupRequest
+     *
+     **/
+    public function amazonLookupRequest($awsAccessKeyId,  $awsSecretKey, $awsAssociateTag, $locale="US") {
+        return new DatafeedrAmazonLookupRequest($this, $awsAccessKeyId,  $awsSecretKey, $awsAssociateTag, $locale);
     }
 
     /**
@@ -268,7 +301,8 @@ class DatafeedrApi
             'Content-Type: application/json',
             'Accept: application/json',
             'Content-Length: '. strlen($postdata),
-            'Connection: close'
+            'Connection: close',
+            'User-Agent: datafeedr.php.' . self::VERSION
         );
         list($status, $response) = call_user_func($this->_transport, $url, $headers, $postdata);
         if(strlen($response)) {
@@ -283,7 +317,7 @@ class DatafeedrApi
         }
 
         if($status != 200) {
-            throw new DatafeedrError("Unexpected error", $status);
+            throw new DatafeedrHTTPError("Status $status");
         }
 
         $this->_status = $this->_get($response, 'status');
@@ -361,13 +395,12 @@ class DatafeedrApi
         $context  = stream_context_create($options);
         $response = file_get_contents($url, false, $context);
 
+        $status = 200;
         if(isset($http_response_header) && isset($http_response_header[0])) {
             if(preg_match('/HTTP.+?(\d\d\d)/', $http_response_header[0], $match))
                 $status = intval($match[1]);
         } else if($response === false) {
-            throw new DatafeedrHTTPError("Unknown http error");
-        } else {
-            $status = 200;
+            throw new DatafeedrHTTPError("HTTP error: invalid response");
         }
         return array($status, $response);
     }
@@ -401,15 +434,21 @@ class DatafeedrApi
         }
         fclose($fp);
 
-        list($header, $response) = explode("\r\n\r\n", $buf, 2);
-        if(preg_match('/HTTP.+?(\d\d\d)/', $header, $match)) {
+        $buf = explode("\r\n\r\n", $buf, 2);
+        if(count($buf) != 2) {
+            throw new DatafeedrHTTPError("Invalid response");
+        }
+        if(preg_match('/HTTP.+?(\d\d\d)/', $buf[0], $match)) {
             $status = intval($match[1]);
         } else {
-            throw new DatafeedrHTTPError("Unknown http error");
+            throw new DatafeedrHTTPError("Invalid status");
         }
-        return array($status, $response);
+        return array($status, $buf[1]);
     }
 }
+}
+
+if(!class_exists('DatafeedrSearchRequest', false)) {
 
 /**
  * Search request for Datafeedr API.
@@ -432,7 +471,7 @@ class DatafeedrSearchRequest
         $this->_limit       = 0;
         $this->_offset      = 0;
         $this->_priceGroups = 0;
-        $this->_excludeDuplicates = array();
+        $this->_excludeDuplicates = "";
         $this->_lastResponse = NULL;
     }
 
@@ -484,12 +523,14 @@ class DatafeedrSearchRequest
     /**
      * Exclude duplicate results.
      *
-     * @param  array $fields List of fields which combination should be unique.
+     * @param  string $filter Equality filter in form "field1 field2 | field3".
      * @return $this
      *
     **/
-    public function excludeDuplicates($fields) {
-        $this->_excludeDuplicates = $fields;
+    public function excludeDuplicates($filter) {
+        if(is_array($filter))
+            $filter = implode(' ', $filter);
+        $this->_excludeDuplicates = $filter;
         return $this;
     }
 
@@ -640,6 +681,9 @@ class DatafeedrSearchRequest
         return $default;
     }
 }
+}
+
+if(!class_exists('DatafeedrAmazonRequest', false)) {
 
 class DatafeedrAmazonRequest
 {
@@ -656,14 +700,15 @@ class DatafeedrAmazonRequest
     **/
     public function __construct($api, $awsAccessKeyId,  $awsSecretKey, $awsAssociateTag, $locale="US") {
         $this->_hosts = array(
-            "CA" => "ecs.amazonaws.ca",
-            "DE" => "ecs.amazonaws.de",
+            "CA" => "webservices.amazon.ca",
+            "CN" => "webservices.amazon.cn",
+            "DE" => "webservices.amazon.de",
             "ES" => "webservices.amazon.es",
-            "FR" => "ecs.amazonaws.fr",
+            "FR" => "webservices.amazon.fr",
             "IT" => "webservices.amazon.it",
-            "JP" => "ecs.amazonaws.jp",
-            "UK" => "ecs.amazonaws.co.uk",
-            "US" => "ecs.amazonaws.com",
+            "JP" => "webservices.amazon.co.jp",
+            "UK" => "webservices.amazon.co.uk",
+            "US" => "webservices.amazon.com",
         );
 
         $this->_api    = $api;
@@ -679,25 +724,24 @@ class DatafeedrAmazonRequest
         $this->_awsAssociateTag =  $awsAssociateTag;
     }
 
-
-
-
     /**
-     * Add a parameter.
+     * Returns all parameters.
      *
-     * @param  string $filter Query filter.
-     * @return $this
+     * @return array
      *
-     * @see http://docs.aws.amazon.com/AWSECommerceService/latest/DG/ItemSearch.html
-     *
-    **/
-    public function addParam($name, $value) {
-        $this->_params[$name] = $value;
-        return $this;
+     **/
+    public function getParams() {
+        return $this->_params;
     }
 
-    protected function _amazonUrl($operation, $params) {
+    protected function _amazonUrl($operation, $params, $defaults=NULL) {
         $params = array_filter($params);
+
+        if(!is_null($defaults)) {
+            foreach($defaults as $k => $v)
+                if(!isset($params[$k]))
+                    $params[$k] = $v;
+        }
 
         $params["Operation"]      = $operation;
         $params["Service"]        = "AWSECommerceService";
@@ -708,34 +752,54 @@ class DatafeedrAmazonRequest
 
         ksort($params);
         $query = array();
-        foreach($params as $k => $v)
-            $query []= $k . "=" . rawurlencode($v);
+        foreach($params as $k => $v) {
+            if(is_array($v))
+                $v = implode(',', $v);
+            $query []= $k . '=' . rawurlencode($v);
+        }
         $query = implode('&', $query);
         $host = $this->_hosts[$this->_locale];
         $path = "/onca/xml";
         $subj = sprintf("GET\n%s\n%s\n%s", $host, $path, $query);
-        $sign = base64_encode(hash_hmac("sha256", $subj, $this->_awsSecretKey, TRUE));
-        return sprintf("http://%s%s?%s&Signature=%s", $host, $path, $query, rawurlencode($sign));
+        $sign = rawurlencode(base64_encode(hash_hmac("sha256", $subj, $this->_awsSecretKey, TRUE)));
+        return "http://{$host}{$path}?{$query}&Signature={$sign}";
     }
-
 }
+}
+
+if(!class_exists('DatafeedrAmazonSearchRequest', false)) {
 
 class DatafeedrAmazonSearchRequest extends DatafeedrAmazonRequest
 {
+    /**
+     * Add a parameter.
+     *
+     * @param  string $name  Parameter name.
+     * @param  string $value Parameter value.
+     * @return $this
+     *
+     * @see http://docs.aws.amazon.com/AWSECommerceService/latest/DG/ItemSearch.html
+     *
+     **/
+    public function addParam($name, $value) {
+        $this->_params[$name] = $value;
+        return $this;
+    }
+
+    /**
+     * Run search and return a list of products.
+     *
+     * @return array
+     *
+     **/
     public function execute() {
-        $params = array_filter($this->_params);
         $defaults = array(
-        'ResponseGroup' => 'ItemAttributes,Images,OfferFull,BrowseNodes,EditorialReview,VariationSummary',
-        'SearchIndex'   => 'All',
+            'ResponseGroup' => 'ItemAttributes,Images,OfferFull,BrowseNodes,EditorialReview,VariationSummary',
+            'SearchIndex'   => 'All',
         );
-        foreach($defaults as $k => $v)
-            if(!isset($params[$k]))
-                $params[$k] = $v;
-
-        $request = array('url' => $this->_amazonUrl('ItemSearch', $params));
-        $response = $this->_api->apiCall('amazon_search', $request);
+        $url = $this->_amazonUrl('ItemSearch', $this->_params, $defaults);
+        $response = $this->_api->apiCall('amazon_search', array('url' => $url));
         $this->_found = $response['total_found'];
-
         return $response['products'];
     }
 
@@ -748,51 +812,130 @@ class DatafeedrAmazonSearchRequest extends DatafeedrAmazonRequest
     public function getFoundCount() {
         return $this->_found;
     }
-
+}
 }
 
+if(!class_exists('DatafeedrAmazonLookupRequest', false)) {
 
+class DatafeedrAmazonLookupRequest extends DatafeedrAmazonRequest
+{
+    /**
+     * Add a parameter.
+     *
+     * @param  string $name        Parameter name - one of 'ASIN', 'SKU', 'UPC', 'EAN', 'ISBN'
+     * @param  string|array $value Parameter value or an array of values (up to 10).
+     * @return $this
+     *
+     * @see http://docs.aws.amazon.com/AWSECommerceService/latest/DG/ItemLookup.html
+     *
+     **/
+    public function addParam($name, $value) {
+        $this->_params[$name] = $value;
+        return $this;
+    }
 
+    /**
+     * Run search and return a list of products.
+     *
+     * @return array
+     *
+     **/
+    public function execute() {
+        $params = array_filter($this->_params);
+        $types = array('ASIN', 'SKU', 'UPC', 'EAN', 'ISBN', 'asin', 'sku', 'upc', 'ean', 'isbn');
+        foreach($types as $type) {
+            if(isset($params[$type])) {
+                $params['IdType'] = strtoupper($type);
+                $params['ItemId'] = $params[$type];
+                unset($params[$type]);
+            }
+        }
+
+        $defaults = array(
+            'ResponseGroup' => 'ItemAttributes,Images,OfferFull,BrowseNodes,EditorialReview,VariationSummary',
+        );
+        if(isset($params['IdType']) && $params['IdType'] != 'ASIN')
+            $defaults['SearchIndex'] = 'All';
+
+        $url = $this->_amazonUrl('ItemLookup', $params, $defaults);
+        $response = $this->_api->apiCall('amazon_search', array('url' => $url));
+        $this->_found = $response['total_found'];
+        return $response['products'];
+    }
+
+    /**
+     * Get a number of found products.
+     *
+     * @return int
+     *
+     **/
+    public function getFoundCount() {
+        return $this->_found;
+    }
+}
+}
+
+if(!class_exists('DatafeedrError', false)) {
 /**
  * Generic Api error.
 **/
 class DatafeedrError extends Exception
 {
 }
+}
 
+if(!class_exists('DatafeedrBadRequestError', false)) {
 /**
  * API error: Invalid Request.
 **/
 class DatafeedrBadRequestError extends DatafeedrError
 {
 }
+}
 
+if(!class_exists('DatafeedrAuthenticationError', false)) {
 /**
  * API error: Authentication failed.
 **/
 class DatafeedrAuthenticationError extends DatafeedrError
 {
 }
+}
 
+if(!class_exists('DatafeedrLimitExceededError', false)) {
 /**
  * API error: Query limit exceeded.
 **/
 class DatafeedrLimitExceededError extends DatafeedrError
 {
 }
+}
 
 /**
  * API error: Unspecified HTTP error.
 **/
+if(!class_exists('DatafeedrHTTPError', false)) {
 class DatafeedrHTTPError extends DatafeedrError
 {
 }
+}
 
+if(!class_exists('DatafeedrQueryError', false)) {
 /**
  * API error: Error in the search query.
 **/
 class DatafeedrQueryError extends DatafeedrError
 {
+}
+}
+
+if(!class_exists('DatafeedrExternalError', false)) {
+/**
+ * API error: External service error.
+**/
+class DatafeedrExternalError extends DatafeedrError
+{
+}
 }
 
 ?>
