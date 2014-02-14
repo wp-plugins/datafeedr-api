@@ -4,7 +4,7 @@ Contributors: datafeedrcom
 Tags: woocommerce, datafeedr, affiliate products
 Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 0.9.5
+Stable tag: 0.9.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,9 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 4. Account usage overview
 
 == Changelog ==
+
+= 0.9.6 =
+* Added if(!class_exists('...')) checks to the Datafeedr Api Client Library.
 
 = 0.9.5 =
 * Fixed undefined indexes.
