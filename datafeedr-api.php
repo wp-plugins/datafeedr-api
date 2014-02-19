@@ -11,7 +11,7 @@ Requires at least: 3.8
 Tested up to: 3.8.1
 
 Datafeedr API Plugin
-Copyright (C) 2013, Datafeedr - api@datafeedr.com
+Copyright (C) 2014, Datafeedr - eric@datafeedr.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -41,12 +41,13 @@ define( 'DFRAPI_HOME_URL', 			'https://v4.datafeedr.com' );
 define( 'DFRAPI_KEYS_URL', 			'https://v4.datafeedr.com/keys' );
 define( 'DFRAPI_USER_URL', 			'https://v4.datafeedr.com/user' );
 define( 'DFRAPI_HELP_URL', 			'https://v4.datafeedr.com/support' );
-define( 'DFRAPI_BUG_REPORTS_URL',	'https://datafeedr.desk.com/customer/portal/topics/610933-bug-reports/questions?t=417957' );
-define( 'DFRAPI_QNA_URL',			'https://datafeedr.desk.com/customer/portal/topics/608564-customer-support/questions' );
-define( 'DFRAPI_DOCS_URL',			'https://datafeedr.desk.com/customer/portal/topics/608564-customer-support/articles' );
-define( 'DFRAPI_REPORT_BUG_URL',	'https://datafeedr.desk.com/customer/portal/questions/new?t=417957&qna[kb_topic_id]=610933' );
-define( 'DFRAPI_ASK_QUESTION_URL',	'https://datafeedr.desk.com/customer/portal/questions/new?t=417957&qna[kb_topic_id]=608564' );
-define( 'DFRAPI_EMAIL_US_URL',		'https://datafeedr.desk.com/customer/portal/emails/new' );
+define( 'DFRAPI_BUG_REPORTS_URL',	'https://v4.datafeedr.com/bug-reports' );
+define( 'DFRAPI_QNA_URL',			'https://v4.datafeedr.com/topics' );
+define( 'DFRAPI_DOCS_URL',			'https://v4.datafeedr.com/support' );
+define( 'DFRAPI_REPORT_BUG_URL',	'https://v4.datafeedr.com/node/add/bug-report' );
+define( 'DFRAPI_ASK_QUESTION_URL',	'https://v4.datafeedr.com/node/add/topic' );
+define( 'DFRAPI_EMAIL_US_URL',		'https://v4.datafeedr.com/node/add/ticket' );
+
 /**
  * Require WP 3.8+
  */
