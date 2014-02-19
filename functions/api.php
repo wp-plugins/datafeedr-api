@@ -426,7 +426,7 @@ function dfrapi_api_get_products_by_query( $query, $ppp=20, $page=1, $excluded=a
 		
 		// Sort products.
 		$sort = dfrapi_api_get_query_param( $query, 'sort' );
-		if( $sort ) {
+		if( $sort && strlen( $sort['operator'] ) ) {
 			$search->addSort( $sort['operator'] );
 		}
 			

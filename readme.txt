@@ -55,6 +55,9 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 
 == Changelog ==
 
+= 0.9.7 =
+* Fixed issed related to using Sort by Relevance. #8439
+
 = 0.9.6 =
 * Added if(!class_exists('...')) checks to the Datafeedr Api Client Library.
 
