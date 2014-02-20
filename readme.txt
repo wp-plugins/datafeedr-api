@@ -16,6 +16,11 @@ Connect to the Datafeedr API.
 
 The Datafeedr API provides access to our database of affiliate products. We have aggregated over 250,000,000 products from over 10,000 merchants and 32 affiliate networks. We have indexed and normalized the product data making it easy for you to search for and find products you want to promote on your website.
 
+The *Datafeedr API* plugin currently integrates with the following plugins:
+
+* [Datafeedr WooCommerce Importer](http://wordpress.org/plugins/datafeedr-woocommerce-importer/)
+* [Datafeedr Product Sets](http://wordpress.org/plugins/datafeedr-product-sets/)
+
 The *Datafeedr API* plugin provides the interface to connect to the Datafeedr API and perform the following tasks:
 
 * Configure your API connection settings.
