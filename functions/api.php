@@ -140,6 +140,27 @@ function dfrapi_api_get_all_networks( $nids=array() ) {
 }
 
 /**
+ * Returns a Zanox zmid value.
+ */
+function dfrapi_api_get_zanox_zmid( $merchant_id, $adspace_id ) {
+	$option_name = 'zmid_' . $merchant_id . $adspace_id;
+	$zanox = get_transient( $option_name );
+	if ( false === $zanox || empty ( $zanox ) ) {
+		$api = dfrapi_api( dfrapi_get_transport_method() );
+		try {
+			$zanox_keys = dfrapi_get_zanox_keys();
+			$zanox = $api->getZanoxMerchantIds( $merchant_id, $adspace_id, $zanox_keys['connection_key'] );
+		} catch( Exception $err ) {
+			return dfrapi_api_error( $err );
+		}
+		set_transient( $option_name, $zanox, WEEK_IN_SECONDS );
+	}
+	dfrapi_update_transient_whitelist( $option_name );
+	return $zanox;
+}
+
+
+/**
  * This creates 2 options in the options table each time the option 
  * "dfrapi_all_networks" is updated with new network information from the API.
  * 

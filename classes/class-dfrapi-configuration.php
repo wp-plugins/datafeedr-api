@@ -34,7 +34,7 @@ if ( ! class_exists( 'Dfrapi_Configuration' ) ) {
 		}
 	
 		function admin_notice() {
-			if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] == true && 'dfrapi' == $_GET['page'] ) {
+			if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] == true && isset( $_GET['page'] ) && 'dfrapi' == $_GET['page'] ) {
 				echo '<div class="updated"><p>';
 				_e( 'Configuration successfully updated!', DFRAPI_DOMAIN );
 				echo '</p></div>';
@@ -60,6 +60,8 @@ if ( ! class_exists( 'Dfrapi_Configuration' ) ) {
 					'access_id' => '',
 					'secret_key' => '',
 					'transport_method' => 'curl',
+					'zanox_connection_key' => '',
+					'zanox_secret_key' => '',
 				), 
 				$this->options 
 			);
@@ -67,25 +69,21 @@ if ( ! class_exists( 'Dfrapi_Configuration' ) ) {
 	
 		function register_settings() {
 			register_setting( $this->page, $this->key, array( $this, 'validate' ) );
-			add_settings_section( 'api_settings', __( 'API Settings', DFRAPI_DOMAIN ), array( &$this, 'section_api_settings_desc' ), $this->page );
+			add_settings_section( 'api_settings', __( 'Datafeedr API Settings', DFRAPI_DOMAIN ), array( &$this, 'section_api_settings_desc' ), $this->page );
 			add_settings_field( 'access_id', __( 'API Access ID', DFRAPI_DOMAIN ), array( &$this, 'field_access_id' ), $this->page, 'api_settings' );
 			add_settings_field( 'secret_key',  __( 'API Secret Key', DFRAPI_DOMAIN ), array( &$this, 'field_secret_key' ), $this->page, 'api_settings' );
 			add_settings_field( 'transport_method',  __( 'Transport Method', DFRAPI_DOMAIN ), array( &$this, 'field_transport_method' ), $this->page, 'api_settings' );
+			
+			add_settings_section( 'zanox_api_settings', __( 'Zanox Settings', DFRAPI_DOMAIN ), array( &$this, 'section_zanox_api_settings_desc' ), $this->page );
+			add_settings_field( 'zanox_connection_key', __( 'Connection Key', DFRAPI_DOMAIN ), array( &$this, 'field_zanox_connection_key' ), $this->page, 'zanox_api_settings' );
+			add_settings_field( 'zanox_secret_key',  __( 'Secret Key', DFRAPI_DOMAIN ), array( &$this, 'field_zanox_secret_key' ), $this->page, 'zanox_api_settings' );
 		}
 	
 		function section_api_settings_desc() { 
 			echo __( 'Add your ', DFRAPI_DOMAIN );
 			echo ' <a href="'.DFRAPI_KEYS_URL.'" target="_blank" title="' . __( 'Get your Datafeedr API Keys', DFRAPI_DOMAIN ) . '">';
 			echo __( 'Datafeedr API Keys', DFRAPI_DOMAIN );
-			echo '</a>.'; 
-		}
-	
-		function section_update_desc() { 
-			echo __( 'Configure Product Set updates.', DFRAPI_DOMAIN );
-		}
-
-		function section_default_search_filters_desc() {
-			echo __( 'Set up filters that are used in all of your searches.  This can be changed on a Product Set basis.', DFRAPI_DOMAIN );		
+			echo '</a>.';
 		}
 
 		function field_access_id() {
@@ -100,6 +98,25 @@ if ( ! class_exists( 'Dfrapi_Configuration' ) ) {
 			<?php
 		}
 		
+		function section_zanox_api_settings_desc() { 
+			echo __( 'If you want to use the Zanox affiliate network, add your ', DFRAPI_DOMAIN );
+			echo ' <a href="http://publisher.zanox.com/ws_gettingstarted/ws.gettingstarted.html" target="_blank" title="' . __( 'Get your Zanox Keys', DFRAPI_DOMAIN ) . '">';
+			echo __( 'Zanox Keys', DFRAPI_DOMAIN );
+			echo '</a>.';
+		}
+
+		function field_zanox_connection_key() {
+			?>
+			<input type="text" class="regular-text" name="<?php echo $this->key; ?>[zanox_connection_key]" value="<?php echo esc_attr( $this->options['zanox_connection_key'] ); ?>" />
+			<?php
+		}
+
+		function field_zanox_secret_key() {
+			?>
+			<input type="text" class="regular-text" name="<?php echo $this->key; ?>[zanox_secret_key]" value="<?php echo esc_attr( $this->options['zanox_secret_key'] ); ?>" />
+			<?php
+		}
+				
 		function field_transport_method() {
 			?>
 			<select id="transport_method" name="<?php echo $this->key; ?>[transport_method]">
@@ -132,6 +149,16 @@ if ( ! class_exists( 'Dfrapi_Configuration' ) ) {
 				// Validate "transport_method"
 				if ( $key == 'transport_method' ) {
 					$new_input['transport_method'] = trim( $value );
+				}
+				
+				// Validate "zanox_connection_key"
+				if ( $key == 'zanox_connection_key' ) {
+					$new_input['zanox_connection_key'] = trim( $value );
+				}
+			
+				// Validate "zanox_secret_key"
+				if ( $key == 'zanox_secret_key' ) {
+					$new_input['zanox_secret_key'] = trim( $value );
 				}
 						
 			} // foreach

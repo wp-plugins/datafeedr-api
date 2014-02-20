@@ -42,11 +42,9 @@ jQuery(function($) {
         var aid = parent.attr('aid');
         var tid = parent.attr('tid');
         if ($(this).prop('checked')) {
-            $("#" + id + " .aid_input").html('<input type="text" name="'+key+'[ids]['+nid+'][aid]" value="'+aid+'" class="aid_input_field" />');
-            $("#" + id + " .tid_input").html('<input type="text" name="'+key+'[ids]['+nid+'][tid]" value="'+tid+'" class="tid_input_field" />');
+            $("#" + id + " .aid_input").children().show();
         } else {
-            $("#" + id + " .aid_input").html('');
-            $("#" + id + " .tid_input").html('');
+            $("#" + id + " .aid_input").children().hide();
         }
     }).change();
 

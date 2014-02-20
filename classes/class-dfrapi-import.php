@@ -31,7 +31,7 @@ if ( ! class_exists( 'Dfrapi_Import' ) ) {
 		}
 		
 		function admin_notice() {
-			if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] == true && $this->key == $_GET['page'] ) {
+			if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] == true && isset( $_GET['page'] ) && $this->key == $_GET['page'] ) {
 				echo '<div class="updated"><p>';
 				_e( 'Settings successfully imported!', DFRAPI_DOMAIN );
 				echo '</p></div>';
@@ -86,19 +86,24 @@ if ( ! class_exists( 'Dfrapi_Import' ) ) {
 			
 			// Import networks
 			preg_match ("/(\[NETWORKS\]).*(\[\/NETWORKS\])/i", $value, $networks);
-			$networks = str_replace( array("[NETWORKS]", "[/NETWORKS]"), "", $networks[0]);
-			$networks = trim( $networks );
-			if ( strlen( $networks ) > 1 ) {
-				update_option( 'dfrapi_networks', unserialize( $networks ) );
+			if ( isset( $networks[0] ) ) {
+				$networks = str_replace( array("[NETWORKS]", "[/NETWORKS]"), "", $networks[0]);
+				$networks = trim( $networks );
+				if ( strlen( $networks ) > 1 ) {
+					update_option( 'dfrapi_networks', unserialize( $networks ) );
+				}
 			}
 			
 			// Import merchants
 			preg_match ("/(\[MERCHANTS\]).*(\[\/MERCHANTS\])/i", $value, $merchants);
-			$merchants = str_replace( array("[MERCHANTS]", "[/MERCHANTS]"), "", $merchants[0]);
-			$merchants = trim( $merchants );
-			if ( strlen( $merchants ) > 1 ) {
-				update_option( 'dfrapi_merchants', unserialize( $merchants ) );
+			if ( isset( $merchants[0] ) ) {
+				$merchants = str_replace( array("[MERCHANTS]", "[/MERCHANTS]"), "", $merchants[0] );
+				$merchants = trim( $merchants );
+				if ( strlen( $merchants ) > 1 ) {
+					update_option( 'dfrapi_merchants', unserialize( $merchants ) );
+				}
 			}
+			
 		}
 		
 		

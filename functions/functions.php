@@ -92,6 +92,44 @@ function dfrapi_email_user_about_usage() {
 }
 
 /**
+ * Modify affiliate ID if product is a Zanox product. 
+ * Replaces $affiliate_id with "zmid".
+ */
+add_filter( 'dfrapi_filter_affiliate_id', 'dfrapi_get_zanox_zmid', 10, 3 );
+function dfrapi_get_zanox_zmid( $affiliate_id, $url, $product ) {
+	if ( isset( $product['source'] ) && preg_match( "/\bZanox\b/", $product['source'] ) ) {
+		$zanox = dfrapi_api_get_zanox_zmid( $product['merchant_id'], $affiliate_id );
+    	$affiliate_id = $zanox[0]['zmid'];
+	}
+	return $affiliate_id;
+}
+
+function dfrapi_get_zanox_keys() {
+	
+	$configuration = (array) get_option( 'dfrapi_configuration' );	
+	
+	$zanox_connection_key = false;
+	$zanox_secret_key = false;
+	
+	if ( isset( $configuration['zanox_connection_key'] ) && ( $configuration['zanox_connection_key'] != '' ) ) {
+		$zanox_connection_key = $configuration['zanox_connection_key'];
+	}
+	
+	if ( isset( $configuration['zanox_secret_key'] ) && ( $configuration['zanox_secret_key'] != '' ) ) {
+		$zanox_secret_key = $configuration['zanox_secret_key'];
+	}
+	
+	if ( $zanox_connection_key && $zanox_secret_key ) {
+		return array( 
+			'connection_key'=> $zanox_connection_key,
+			'secret_key' 	=> $zanox_secret_key,
+		);
+	}
+	
+	return false;
+}
+
+/**
  * Returns a link to a user page on v4.datafeedr.com.
  */
 function dfrapi_user_pages( $page ) {
@@ -147,6 +185,7 @@ function dfrapi_url( $product ) {
 	// Set URL and apply filters.
 	$url = $product['url'];
 	$url = apply_filters( 'dfrapi_before_affiliate_id_insertion', $url, $product, $affiliate_id );
+	$affiliate_id = apply_filters( 'dfrapi_filter_affiliate_id', $affiliate_id, $url, $product );	
 	$url = str_replace( "@@@", $affiliate_id, $url );
 	$url = apply_filters( 'dfrapi_after_affiliate_id_insertion', $url, $product, $affiliate_id );
 	

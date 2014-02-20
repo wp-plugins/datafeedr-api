@@ -55,6 +55,10 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 
 == Changelog ==
 
+= 0.9.8 =
+* Added support for Zanox.
+* Fixed undefined indexes.
+
 = 0.9.7 =
 * Fixed issed related to using Sort by Relevance. #8439
 * Fixed "support" links in help tab.

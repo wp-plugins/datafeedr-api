@@ -119,9 +119,6 @@ a.dfrapi_plan_link
 #dfrapi_networks .group .networks .networks_table th.tid_head,
 #dfrapi_networks .group .networks .networks_table td.tid_input { display: none; }
 
-/* Remove this to add Zanox option */
-#dfrapi_networks #group_zanox { display: none; }
-
 #dfrapi_networks .group .networks .networks_table tr.network td.network_name
 {
 	white-space: nowrap;

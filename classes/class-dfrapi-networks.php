@@ -42,7 +42,7 @@ if ( ! class_exists( 'Dfrapi_Networks' ) ) {
 		}
 		
 		function admin_notice() {
-			if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] == true && $this->key == $_GET['page'] ) {
+			if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] == true && isset( $_GET['page'] ) && $this->key == $_GET['page'] ) {
 				echo '<div class="updated"><p>';
 				_e( 'Networks successfully updated!', DFRAPI_DOMAIN );
 				echo '</p></div>';
@@ -155,7 +155,15 @@ if ( ! class_exists( 'Dfrapi_Networks' ) ) {
 						<td class="network_type">
 							<span class="dfrapi_label' . $type_class . '">' . ucfirst( $type ) . '</span>
 						</td>
-						<td class="aid_input"></td>
+						';
+						
+						if ( $group_name == 'Zanox' ) {
+							$html .= '<td class="aid_input">' . $this->zanox_adspace( $network['_id'], @$this->options['ids'][$network['_id']]['aid'] ) . '</td>';
+						} else {
+							$html .= '<td class="aid_input"><input type="text" name="dfrapi_networks[ids][' . $network['_id'] . '][aid]" value="' . @$this->options['ids'][$network['_id']]['aid'] . '" class="aid_input_field" /></td>';
+						}					
+						
+						$html .= '
 						<td class="tid_input"></td>
 					</tr>
 					';
@@ -177,6 +185,54 @@ if ( ! class_exists( 'Dfrapi_Networks' ) ) {
 				$groups[] = $network['group'];
 			}
 			return array_unique( $groups );	
+		}
+		
+		/**
+		 * This returns <select> menu for adspaces.
+		 */		
+		function zanox_adspace( $nid, $selected_adspace ) {
+			$html = '';
+			$adspaces = $this->get_zanox_adspaces();
+			if ( isset( $adspaces['zanox_error'] ) ) {
+				if ( $adspaces['zanox_error'] == 'missing_keys' ) {
+					$html .= '<span><a href="' . admin_url( 'admin.php?page=dfrapi' ) . '" class="dfrapi_warning">' . __( 'Please add your Zanox Connection &amp; Secret Key', DFRAPI_DOMAIN ) . '</a>.</span>';
+				} else {
+					$html .= '<pre>' . print_r( $adspaces['zanox_error'], TRUE ) . '</pre>';
+				}
+			} else {
+				$html .= '<select name="dfrapi_networks[ids][' . $nid . '][aid]">';
+				$html .= '<option value="">' . __( 'Select an adspace', DFRAPI_DOMAIN ) . '</option>';
+				foreach( $adspaces as $adspace ) {
+					$selected = selected( $selected_adspace, $adspace['id'], false );
+					$html .= '<option value="' . $adspace['id'] . '" ' . $selected . '>' . $adspace['name'] . '</option>';
+				}
+				$html .= '</select>';
+			}			
+			return $html;
+		}
+		
+		/**
+		 * This returns adspaces for a Zanox user.
+		 */
+		function get_zanox_adspaces() {
+			$option_name = 'dfrapi_zanox_adspaces';
+			$adspaces = get_transient( $option_name );
+			if ( false === $adspaces || empty ( $adspaces ) ) {
+				$zanox_keys = dfrapi_get_zanox_keys();
+				if ( !$zanox_keys ) {
+					return array( 'zanox_error' => 'missing_keys' );
+				} else {
+					$client = new Dfr_ZanoxAPIClient( $zanox_keys['connection_key'], $zanox_keys['secret_key'] );
+					$adspaces = $client->adspaces();
+					if ( $client->error() ) {
+						return array( 'zanox_error' => $client->error() );
+					} else {
+						set_transient( $option_name, $adspaces, HOUR_IN_SECONDS );
+					}
+				}				
+			}
+			dfrapi_update_transient_whitelist( $option_name );
+			return $adspaces;
 		}
 		
 		function num_missing_affiliate_ids_in_group( $group_name ) {
@@ -306,7 +362,15 @@ if ( ! class_exists( 'Dfrapi_Networks' ) ) {
 		}
 		
 		function validate( $input ) {
-			return $input;
+			$new_input['ids'] = array();
+			if ( isset( $input['ids'] ) ) {
+				foreach ( $input['ids'] as $k => $v ) {
+					if ( isset( $v['nid'] ) ) {
+						$new_input['ids'][$k] = $v;		
+					}
+				}
+			}
+			return $new_input;
 		}
 		
 	} // class Dfrapi_Networks
