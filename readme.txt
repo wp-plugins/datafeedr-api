@@ -1,6 +1,6 @@
 === Datafeedr API ===
 
-Contributors: datafeedrcom
+Contributors: datafeedr.com
 Tags: woocommerce, datafeedr, affiliate products
 Requires at least: 3.8
 Tested up to: 3.8.1
@@ -59,6 +59,9 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 4. Account usage overview
 
 == Changelog ==
+
+= 0.9.9 =
+* Updated "Contributors" and "Author" fields to match WP.org username.
 
 = 0.9.8 =
 * Added support for Zanox.

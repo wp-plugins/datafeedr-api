@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Datafeedr API
-Version: 0.9.8
+Version: 0.9.9
 Plugin URI: https://v4.datafeedr.com
 Description: Connect to the Datafeedr API and configure your API settings.
-Author: Datafeedr
+Author: datafeedr.com
 Author URI: https://v4.datafeedr.com
 License: GPL v3
 Requires at least: 3.8
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * Define constants.
  */
-define( 'DFRAPI_VERSION', 			'0.9.8' );
+define( 'DFRAPI_VERSION', 			'0.9.9' );
 define( 'DFRAPI_URL', 				plugin_dir_url( __FILE__ ) );
 define( 'DFRAPI_PATH', 				plugin_dir_path( __FILE__ ) );
 define( 'DFRAPI_BASENAME', 			plugin_basename( __FILE__ ) );
