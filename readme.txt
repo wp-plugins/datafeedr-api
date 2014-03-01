@@ -62,6 +62,7 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 
 = 0.9.9 =
 * Updated "Contributors" and "Author" fields to match WP.org username.
+* Added support for AUD, DKK, SEK, NOK, CHF, NZD & TRY currency codes.
 
 = 0.9.8 =
 * Added support for Zanox.

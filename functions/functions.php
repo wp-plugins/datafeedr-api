@@ -221,6 +221,13 @@ function dfrapi_currency_code_to_sign( $code ) {
 		'GBP' => '&pound;',
 		'EUR' => '&euro;',
 		'CAD' => '&#36;',
+		'AUD' => '&#36;',
+		'DKK' => 'kr',
+		'SEK' => 'kr',
+		'NOK' => 'kr',
+		'CHF' => 'CHF',
+		'NZD' => '&#36;',
+		'TRY' => '&#8356;',
 	);
 	
 	$map = apply_filters( 'dfrapi_currency_sign_mapper', $map );

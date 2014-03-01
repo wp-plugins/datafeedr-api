@@ -99,7 +99,19 @@ class Dfrapi_SearchForm
                 'title' => __( 'Currency', DFRAPI_DOMAIN ),
                 'name' => 'currency',
                 'input' => 'select',
-                'options' => array('USD' => 'USD', 'CAD' => 'CAD', 'GBP' => 'GBP', 'EUR' => 'EUR'),
+                'options' => array(
+                	'USD' => 'USD', 
+                	'CAD' => 'CAD', 
+                	'GBP' => 'GBP', 
+                	'EUR' => 'EUR',
+                	'AUD' => 'AUD',
+                	'DKK' => 'DKK',
+                	'SEK' => 'SEK',
+                	'NOK' => 'NOK',
+                	'CHF' => 'CHF',
+                	'NZD' => 'NZD',
+                	'TRY' => 'TRY',
+                ),
                 'operator' => $opIsIsnt
             ),
             array(
