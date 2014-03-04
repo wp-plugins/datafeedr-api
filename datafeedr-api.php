@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Datafeedr API
-Version: 0.9.9
+Version: 1.0.0
 Plugin URI: https://v4.datafeedr.com
 Description: Connect to the Datafeedr API and configure your API settings.
 Author: datafeedr.com
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * Define constants.
  */
-define( 'DFRAPI_VERSION', 			'0.9.9' );
+define( 'DFRAPI_VERSION', 			'1.0.0' );
 define( 'DFRAPI_URL', 				plugin_dir_url( __FILE__ ) );
 define( 'DFRAPI_PATH', 				plugin_dir_path( __FILE__ ) );
 define( 'DFRAPI_BASENAME', 			plugin_basename( __FILE__ ) );

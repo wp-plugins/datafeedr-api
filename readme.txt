@@ -1,10 +1,10 @@
 === Datafeedr API ===
 
 Contributors: datafeedr.com
-Tags: woocommerce, datafeedr, affiliate products
+Tags: woocommerce, datafeedr, affiliate products, dfrapi, adrecord, adtraction, affiliate window, affiliate4you, affilinet, avangate, avantlink, belboon, betty mills, bol.com, cj, clickbank, clixgalore, commission factory, commission junction, commission monster, daisycon, dgm, impact radius, linkconnector, linkshare, m4n, onenetworkdirect, paid on results, partner-ads, pepperjam, regnow, revresponse, shareasale, superclix, tradedoubler, tradetracker, webgains, zanox
 Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 0.9.8
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Connect to the Datafeedr API.
 
 == Description ==
 
-**NOTE:** The *Datafeedr API* plugin requires that you have Datafeedr API keys. API keys can be purchased here: [https://v4.datafeedr.com/](https://v4.datafeedr.com/)
+**NOTE:** The *Datafeedr API* plugin requires that you have Datafeedr API keys. API keys can be accessed here: [https://v4.datafeedr.com/pricing](https://v4.datafeedr.com/pricing?p=1&utm_campaign=dfrapiplugin&utm_medium=referral&utm_source=wporg)
 
 The Datafeedr API provides access to our database of affiliate products. We have aggregated over 250,000,000 products from over 10,000 merchants and 32 affiliate networks. We have indexed and normalized the product data making it easy for you to search for and find products you want to promote on your website.
 
@@ -49,7 +49,7 @@ This section describes how to install and configure the plugin:
 
 = Where can I get help?  =
 
-Our support area can be found here: [https://v4.datafeedr.com/support](https://v4.datafeedr.com/support). This support area is open to everyone.
+Our support area can be found here: [https://v4.datafeedr.com/support](https://v4.datafeedr.com/support?p=1&utm_campaign=dfrapiplugin&utm_medium=referral&utm_source=wporg). This support area is open to everyone.
 
 == Screenshots ==
 
@@ -60,7 +60,7 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 
 == Changelog ==
 
-= 0.9.9 =
+= 1.0.0 =
 * Updated "Contributors" and "Author" fields to match WP.org username.
 * Added support for AUD, DKK, SEK, NOK, CHF, NZD & TRY currency codes.
 
