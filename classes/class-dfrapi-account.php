@@ -74,14 +74,14 @@ if ( ! class_exists( 'Dfrapi_Account' ) ) {
 				$plan_name .= $plans[$this->options['plan_id']];
 				if ( $this->options['plan_id'] != 10250000 ) {
 					$plan_name .= ' (';
-					$plan_name .= '<a href="' . dfrapi_user_pages( 'change' ) . '" target="_blank" class="dfrapi_plan_link">' . __( 'Upgrade', DFRAPI_DOMAIN ) . '</a>';
+					$plan_name .= '<a href="' . dfrapi_user_pages( 'change' ) . '?utm_source=plugin&utm_medium=link&utm_campaign=dfrapiaccountpage" target="_blank" class="dfrapi_plan_link">' . __( 'Upgrade', DFRAPI_DOMAIN ) . '</a>';
 					$plan_name .= ')';
 				}
 			} else {
 				$plan_name .= '<em>';
 				$plan_name .= __( 'None', DFRAPI_DOMAIN );
 				$plan_name .= '</em> (';
-				$plan_name .= '<a href="' . dfrapi_user_pages( 'signup' ) . '" target="_blank" class="dfrapi_plan_link">' . __( 'Reactivate your subscription', DFRAPI_DOMAIN ) . '</a>';
+				$plan_name .= '<a href="' . dfrapi_user_pages( 'signup' ) . '?utm_source=plugin&utm_medium=link&utm_campaign=dfrapiaccountpage" target="_blank" class="dfrapi_plan_link">' . __( 'Reactivate your subscription', DFRAPI_DOMAIN ) . '</a>';
 				$plan_name .= ')';
 			}
 			
@@ -166,8 +166,8 @@ if ( ! class_exists( 'Dfrapi_Account' ) ) {
 		}
 	
 		function section_account_desc() {
-			echo '<p><a href="' . dfrapi_user_pages( 'summary' ) . '" target="_blank">' . __( 'View your Datafeedr account', DFRAPI_DOMAIN ) . '</a></p>';
-			echo '<p><a href="' . dfrapi_user_pages( 'change' ) . '" target="_blank">' . __( 'Upgrade your plan', DFRAPI_DOMAIN ) . '</a></p>';
+			echo '<p><a href="' . dfrapi_user_pages( 'summary' ) . '?utm_source=plugin&utm_medium=link&utm_campaign=dfrapiaccountpage" target="_blank">' . __( 'View your Datafeedr account', DFRAPI_DOMAIN ) . '</a></p>';
+			echo '<p><a href="' . dfrapi_user_pages( 'change' ) . '?utm_source=plugin&utm_medium=link&utm_campaign=dfrapiaccountpage" target="_blank">' . __( 'Upgrade your plan', DFRAPI_DOMAIN ) . '</a></p>';
 		}
 		
 		function validate( $input ) {

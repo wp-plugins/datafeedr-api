@@ -81,7 +81,7 @@ if ( ! class_exists( 'Dfrapi_Configuration' ) ) {
 	
 		function section_api_settings_desc() { 
 			echo __( 'Add your ', DFRAPI_DOMAIN );
-			echo ' <a href="'.DFRAPI_KEYS_URL.'" target="_blank" title="' . __( 'Get your Datafeedr API Keys', DFRAPI_DOMAIN ) . '">';
+			echo ' <a href="'.DFRAPI_KEYS_URL.'?utm_source=plugin&utm_medium=link&utm_campaign=dfrapiconfigpage" target="_blank" title="' . __( 'Get your Datafeedr API Keys', DFRAPI_DOMAIN ) . '">';
 			echo __( 'Datafeedr API Keys', DFRAPI_DOMAIN );
 			echo '</a>.';
 		}

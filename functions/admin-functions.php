@@ -143,9 +143,9 @@ function dfrapi_help_tab( $screen ) {
 		'title'	=> __( 'Support', DFRAPI_DOMAIN ),
 		'content'	=>
 			'<h2>' . __( "Datafeedr Support", DFRAPI_DOMAIN ) . '</h2>' . 
-			'<p>' . sprintf(__( 'If you have a question or a problem, please search the <a href="%s" target="_blank">documentation</a> and the <a href="%s" target="_blank">support forums</a>', DFRAPI_DOMAIN ), DFRAPI_DOCS_URL, DFRAPI_QNA_URL ) . '. ' . __( 'If you are still unable to find an answer feel free to contact us using the links below.', DFRAPI_DOMAIN ) . '</p>' .
-			'<p><a href="' . DFRAPI_ASK_QUESTION_URL . '" class="button button-primary" target="_blank">' . __( 'Post a Question', DFRAPI_DOMAIN ) . '</a> (' . __( 'recommended', DFRAPI_DOMAIN ) . ')</p>' . 
-			'<p><a href="' . DFRAPI_EMAIL_US_URL . '" class="button" target="_blank">' . __( 'Email Us', DFRAPI_DOMAIN ) . '</a></p>'
+			'<p>' . sprintf(__( 'If you have a question or a problem, please search the <a href="%s?utm_source=plugin&utm_medium=link&utm_campaign=helptab" target="_blank">documentation</a> and the <a href="%s?utm_source=plugin&utm_medium=link&utm_campaign=helptab" target="_blank">support forums</a>', DFRAPI_DOMAIN ), DFRAPI_DOCS_URL, DFRAPI_QNA_URL ) . '. ' . __( 'If you are still unable to find an answer feel free to contact us using the links below.', DFRAPI_DOMAIN ) . '</p>' .
+			'<p><a href="' . DFRAPI_ASK_QUESTION_URL . '?utm_source=plugin&utm_medium=link&utm_campaign=helptab" class="button button-primary" target="_blank">' . __( 'Post a Question', DFRAPI_DOMAIN ) . '</a> (' . __( 'recommended', DFRAPI_DOMAIN ) . ')</p>' . 
+			'<p><a href="' . DFRAPI_EMAIL_US_URL . '?utm_source=plugin&utm_medium=link&utm_campaign=helptab" class="button" target="_blank">' . __( 'Email Us', DFRAPI_DOMAIN ) . '</a></p>'
 
 	) );
 
@@ -154,15 +154,15 @@ function dfrapi_help_tab( $screen ) {
 		'title'	=> __( 'Found a bug?', DFRAPI_DOMAIN ),
 		'content'	=>
 			'<h2>' . __( "Found a bug?", DFRAPI_DOMAIN ) . '</h2>' . 
-			'<p>' . sprintf( __( 'If you find a bug within Datafeedr please see if it\'s already been reported in <a href="%s" target="_blank">Bug Reports</a>. If it\'s a new bug, please be as descriptive as possible when reporting a bug.', DFRAPI_DOMAIN ), DFRAPI_BUG_REPORTS_URL ) . '</p>' .
-			'<p><a href="' . DFRAPI_REPORT_BUG_URL . '" class="button button-primary" target="_blank">' . __( 'Report a bug', DFRAPI_DOMAIN ) . '</a></p>'
+			'<p>' . sprintf( __( 'If you find a bug within Datafeedr please see if it\'s already been reported in <a href="%s?utm_source=plugin&utm_medium=link&utm_campaign=helptab" target="_blank">Bug Reports</a>. If it\'s a new bug, please be as descriptive as possible when reporting a bug.', DFRAPI_DOMAIN ), DFRAPI_BUG_REPORTS_URL ) . '</p>' .
+			'<p><a href="' . DFRAPI_REPORT_BUG_URL . '?utm_source=plugin&utm_medium=link&utm_campaign=helptab" class="button button-primary" target="_blank">' . __( 'Report a bug', DFRAPI_DOMAIN ) . '</a></p>'
 
 	) );
 
 	$screen->set_help_sidebar(
 		'<p><strong>' . __( 'For more information:', DFRAPI_DOMAIN ) . '</strong></p>' .
-		'<p><a href="' . DFRAPI_HOME_URL . '" target="_blank">' . __( 'About Datafeedr', DFRAPI_DOMAIN ) . '</a></p>' .
-		'<p><a href="' . DFRAPI_HOME_URL . '/keys" target="_blank">' . __( 'Datafeedr API Keys', DFRAPI_DOMAIN ) . '</a></p>'
+		'<p><a href="' . DFRAPI_HOME_URL . '?utm_source=plugin&utm_medium=link&utm_campaign=helptab" target="_blank">' . __( 'About Datafeedr', DFRAPI_DOMAIN ) . '</a></p>' .
+		'<p><a href="' . DFRAPI_HOME_URL . '/keys?utm_source=plugin&utm_medium=link&utm_campaign=helptab" target="_blank">' . __( 'Datafeedr API Keys', DFRAPI_DOMAIN ) . '</a></p>'
 	);
 
 	return $screen;
