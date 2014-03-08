@@ -65,6 +65,7 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 * Removed the 80% API usage email notice.
 * Changed the text in the API usage emails.
 * Converted emails sent from plain text to HTML.
+* Fixed undefined indexes.
 
 = 1.0.1 =
 * Added utm_campaign parameters to help tab links.
