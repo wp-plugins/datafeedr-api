@@ -60,6 +60,12 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 
 == Changelog ==
 
+= 1.0.2
+* Edited nag boxes when API requests are 90% of max.
+* Removed the 80% API usage email notice.
+* Changed the text in the API usage emails.
+* Converted emails sent from plain text to HTML.
+
 = 1.0.1 =
 * Added utm_campaign parameters to help tab links.
 

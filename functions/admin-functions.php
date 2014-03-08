@@ -60,7 +60,7 @@ function dfrapi_admin_messages( $key=false ) {
 			'class' 		=> 'update-nag',
 			'message' 		=> __( 'You have used ', DFRAPI_DOMAIN ) . dfrapi_get_api_usage_percentage() . __( '% of your total Datafeedr API requests this month. ', DFRAPI_DOMAIN ),
 			'url'			=> 'admin.php?page=dfrapi_account',
-			'button_text'	=> __( 'View your account', DFRAPI_DOMAIN )
+			'button_text'	=> __( 'View Account', DFRAPI_DOMAIN )
 		),
 		
 		// Missing affiliate IDs message.
