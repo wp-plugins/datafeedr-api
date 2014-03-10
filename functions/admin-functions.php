@@ -106,6 +106,7 @@ function dfrapi_fix_button( $url, $button_text=false ) {
  */
 function dfrapi_get_membership_plans() {
 	return array(
+		10200 		=> 'Free',
 		101000 		=> 'Starter',
 		1025000 	=> 'Basic',
 		1125000 	=> 'Beta Tester',

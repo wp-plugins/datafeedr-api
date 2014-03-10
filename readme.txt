@@ -4,7 +4,7 @@ Contributors: datafeedr.com
 Tags: woocommerce, datafeedr, affiliate products, dfrapi, adrecord, adtraction, affiliate window, affiliate4you, affilinet, avangate, avantlink, belboon, betty mills, bol.com, cj, clickbank, clixgalore, commission factory, commission junction, commission monster, daisycon, dgm, impact radius, linkconnector, linkshare, m4n, onenetworkdirect, paid on results, partner-ads, pepperjam, regnow, revresponse, shareasale, superclix, tradedoubler, tradetracker, webgains, zanox
 Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,7 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 * Changed the text in the API usage emails.
 * Converted emails sent from plain text to HTML.
 * Fixed undefined indexes.
+* Added "Free" plan to list of available plans.
 
 = 1.0.1 =
 * Added utm_campaign parameters to help tab links.
