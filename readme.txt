@@ -3,7 +3,7 @@
 Contributors: datafeedr.com
 Tags: woocommerce, datafeedr, affiliate products, dfrapi, adrecord, adtraction, affiliate window, affiliate4you, affilinet, avangate, avantlink, belboon, betty mills, bol.com, cj, clickbank, clixgalore, commission factory, commission junction, commission monster, daisycon, dgm, impact radius, linkconnector, linkshare, m4n, onenetworkdirect, paid on results, partner-ads, pepperjam, regnow, revresponse, shareasale, superclix, tradedoubler, tradetracker, webgains, zanox
 Requires at least: 3.8
-Tested up to: 3.8.1
+Tested up to: 3.9-beta1
 Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -60,7 +60,10 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 
 == Changelog ==
 
-= 1.0.2
+= 1.0.3 =
+* Changed <title> of Tools page.
+
+= 1.0.2 =
 * Edited nag boxes when API requests are 90% of max.
 * Removed the 80% API usage email notice.
 * Changed the text in the API usage emails.

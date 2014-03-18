@@ -22,7 +22,7 @@ if ( ! class_exists( 'Dfrapi_Tools' ) ) {
 		function admin_menu() {
 			add_submenu_page(
 				'dfrapi',
-				__( 'Tools &#8212; Datafeedr Product Sets', DFRAPI_DOMAIN ), 
+				__( 'Tools &#8212; Datafeedr API', DFRAPI_DOMAIN ), 
 				__( 'Tools', DFRAPI_DOMAIN ), 
 				'manage_options', 
 				$this->key,
