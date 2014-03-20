@@ -40,7 +40,7 @@ if ( ! class_exists( 'Dfrapi_Tools' ) ) {
 
 		function output() {
 			echo '<div class="wrap" id="' . $this->key . '">';
-			echo '<h2>' . dfrapi_setting_pages( $this->page ) . '</h2>';
+			echo '<h2>' . dfrapi_setting_pages( $this->page ) . ' &#8212; Datafeedr API</h2>';
 			echo '<form method="post" action="options.php">';
 			wp_nonce_field( 'update-options' );
 			settings_fields( $this->page );
@@ -59,7 +59,7 @@ if ( ! class_exists( 'Dfrapi_Tools' ) ) {
 		}
 	
 		function section_delete_transient_data_desc() { 
-			echo __( 'Check the box below and click [Save Changes] to delete all cached API data. Deleting cached data will not affect your store, however, it <strong>will require multiple API requests</strong> in order to re-build the data. Typically, you delete cached data only when Datafeedr Support instructs you to do so.', DFRAPI_DOMAIN );
+			echo __( 'Select <strong>Yes</strong> below and click <strong>[Save Changes]</strong> to delete all cached API data. Deleting cached data will not affect your store, however, it will require multiple API requests in order to re-build the data. Typically, you only delete cached data when Datafeedr Support instructs you to do so.', DFRAPI_DOMAIN );
 		}
 
 		function field_delete_transient_data_checkbox() {

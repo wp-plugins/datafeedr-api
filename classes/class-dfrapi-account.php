@@ -32,7 +32,7 @@ if ( ! class_exists( 'Dfrapi_Account' ) ) {
 		function admin_menu() {
 			add_submenu_page(
 				'dfrapi',
-				__( 'Account', DFRAPI_DOMAIN ), 
+				__( 'Account &#8212; Datafeedr API', DFRAPI_DOMAIN ), 
 				__( 'Account', DFRAPI_DOMAIN ), 
 				'manage_options', 
 				$this->key,
@@ -42,7 +42,7 @@ if ( ! class_exists( 'Dfrapi_Account' ) ) {
 
 		function output() {
 			echo '<div class="wrap" id="' . $this->key . '">';
-			echo '<h2>Datafeedr API ' . dfrapi_setting_pages( $this->page ) . '</h2>';
+			echo '<h2>' . dfrapi_setting_pages( $this->page ) . ' &#8212; Datafeedr API</h2>';
 			settings_fields( $this->page );
 			do_settings_sections( $this->page);
 			echo '</div>';

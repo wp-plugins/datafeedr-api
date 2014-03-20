@@ -27,7 +27,7 @@ if ( ! class_exists( 'Dfrapi_Merchants' ) ) {
 		function admin_menu() {
 			add_submenu_page(
 				'dfrapi',
-				__( 'Merchants &#8212; Datafeedr Product Sets', DFRAPI_DOMAIN ), 
+				__( 'Merchants &#8212; Datafeedr API', DFRAPI_DOMAIN ), 
 				__( 'Merchants', DFRAPI_DOMAIN ), 
 				'manage_options', 
 				$this->key,
@@ -45,7 +45,7 @@ if ( ! class_exists( 'Dfrapi_Merchants' ) ) {
 
 		function output() {			
 			echo '<div class="wrap" id="' . $this->key . '">';
-			echo '<h2>' . dfrapi_setting_pages( $this->page ) . '</h2>';
+			echo '<h2>' . dfrapi_setting_pages( $this->page ) . ' &#8212; Datafeedr API</h2>';
 			if ( array_key_exists( 'dfrapi_api_error', $this->all_networks ) ) {
 				dfrapi_output_api_error( $this->all_networks );
 			} else {			
@@ -77,7 +77,7 @@ if ( ! class_exists( 'Dfrapi_Merchants' ) ) {
 		}
 	
 		function section_merchants_desc() { 
-			echo __( 'Select merchants from your affiliate networks.', DFRAPI_DOMAIN );
+			echo __( 'Select merchants from your affiliate networks then click <strong>[Save Changes]</strong>.', DFRAPI_DOMAIN );
 		}
 		
 		function field_merchant_ids() {

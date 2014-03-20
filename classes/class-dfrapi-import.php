@@ -22,7 +22,7 @@ if ( ! class_exists( 'Dfrapi_Import' ) ) {
 		function admin_menu() {
 			add_submenu_page(
 				'dfrapi',
-				__( 'Import &#8212; Datafeedr Product Sets', DFRAPI_DOMAIN ), 
+				__( 'Import &#8212; Datafeedr API', DFRAPI_DOMAIN ), 
 				__( 'Import', DFRAPI_DOMAIN ), 
 				'manage_options', 
 				$this->key,
@@ -40,7 +40,7 @@ if ( ! class_exists( 'Dfrapi_Import' ) ) {
 
 		function output() {
 			echo '<div class="wrap" id="' . $this->key . '">';
-			echo '<h2>' . dfrapi_setting_pages( $this->page ) . '</h2>';
+			echo '<h2>' . dfrapi_setting_pages( $this->page ) . ' &#8212; Datafeedr API</h2>';
 			echo '<form method="post" action="options.php">';
 			wp_nonce_field( 'update-options' );
 			settings_fields( $this->page );
@@ -57,7 +57,8 @@ if ( ! class_exists( 'Dfrapi_Import' ) ) {
 		}
 	
 		function section_import_data_desc() { 
-			echo '<p>' . __( 'Import data from another website when you want to use the same selection of networks and/or merchants as you have already configured on another website. You can import network and merchant data at the same time.', DFRAPI_DOMAIN ) . '</p>';
+			echo '<p>' . __( 'Import data from another website when you want to use the same selection of networks and/or merchants as you have already configured on another website.', DFRAPI_DOMAIN ) . '</p>';
+			echo '<p>' . __( 'You can import network and merchant data at the same time.', DFRAPI_DOMAIN ) . '</p>';
 			echo '<p class="dfrapi_warning">';
 			echo '<strong>' . __( 'WARNING: ', DFRAPI_DOMAIN ) . '</strong> ';
 			echo __( 'Importing will overwrite all of your current ', DFRAPI_DOMAIN );
@@ -69,7 +70,7 @@ if ( ! class_exists( 'Dfrapi_Import' ) ) {
 
 		function field_import_data_textarea() {
 			echo '<textarea rows="10" cols="100%" name="' . $this->key . '[data]"></textarea></p>';
-			echo '<p class="description">' . __( 'Paste the exported data into the box, then click [Import Data]. You can import Network and Merchant data at the same time.' ) . '</p>';
+			echo '<p class="description">' . __( 'Paste the exported data into the box, then click [Import Data].' ) . '</p>';
 		}
 		
 		function validate( $input ) {

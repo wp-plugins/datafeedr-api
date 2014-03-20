@@ -164,6 +164,17 @@ jQuery(function($) {
     $("#dfrapi_search_form .choose_merchant").click(function() {
         ajaxPopup(this, "choose_merchant");
     });
+    
+    $(".dfrapi_search_help").on('click',function(e) {
+        var classes = $(this).closest('.filter').attr('class').split(' ');
+		for(var i=0; i<classes.length; i++) {
+			if (classes[i].match("^filter_")) {
+		   		var filter = classes[i];
+		   		$('.'+filter+' > .help').slideToggle();
+		   	}
+		}
+        e.preventDefault();
+    });
 
     updateSearchForm($("#dfrapi_search_form").closest("form"));
 });

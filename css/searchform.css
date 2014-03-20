@@ -7,7 +7,7 @@ Search Form CSS
 #dfrapi_search_form .filter
 {
 	margin: 0;
-	padding: 4px 0 2px 0;
+	padding: 4px 0 2px 0px;
 	width: 100%;
 }
 
@@ -25,8 +25,8 @@ Search Form CSS
 #dfrapi_search_form .plusminus
 {
 	float: left;
-	width: 28px;
-	padding: 0;
+	width: 25px;
+	padding: 0 0 0 5px;
 }
 
 #dfrapi_search_form .plusminus a
@@ -47,7 +47,7 @@ Search Form CSS
 #dfrapi_search_form .field
 {
 	float: left;
-	width: 150px;
+	width: 160px;
 }
 
 #dfrapi_search_form .operator
@@ -109,6 +109,46 @@ Search Form CSS
 }
 
 #dfrapi_search_form #dfrapi_saved_current_search_toggle {float: left;}
+
+#dfrapi_search_form > .filter > .field > a.dfrapi_search_help
+{
+	margin-left: 3px;
+	border-bottom: 1px #0074a2 dotted;
+	text-decoration: none;
+}
+
+#dfrapi_search_form > .filter > .help
+{
+	padding: 10px;
+	background: #FFFFC2;
+	margin: 5px 0 10px 0;
+	color: #444;
+}
+
+#dfrapi_search_form > .filter > .help > h3
+{
+	margin: 0 0 5px 0;
+	padding: 0;
+	border: 0;
+	font-size: 13px;
+}
+
+#dfrapi_search_form > .filter > .help > p
+{
+	margin: 0 0 1em 0;
+	font-family: "Open Sans",sans-serif;
+	font-size: 13px;
+	line-height: 1.3em;
+}
+
+#dfrapi_search_form > .filter > .help tt { color: #D54E21; }
+
+
+#dfrapi_search_form > .filter > .help > .dfrapi_search_help
+{
+	float: right;
+	text-decoration: none;
+}
 
 #dfrapi_popup .inline_frame
 {

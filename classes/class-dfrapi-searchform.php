@@ -50,25 +50,29 @@ class Dfrapi_SearchForm
                 'title' => __( 'Any field', DFRAPI_DOMAIN ),
                 'name' => 'any',
                 'input' => 'text',
-                'operator' => $opFulltext
+                'operator' => $opFulltext,
+                'help' => $this->help('any')
             ),
             array(
                 'title' => __( 'Product name', DFRAPI_DOMAIN ),
                 'name' => 'name',
                 'input' => 'text',
                 'operator' => $opFulltextExact,
+                'help' => $this->help('name')
             ),
             array(
                 'title' => __( 'Brand', DFRAPI_DOMAIN ),
                 'name' => 'brand',
                 'input' => 'text',
                 'operator' => $opFulltextExact,
+                'help' => $this->help('brand')
             ),
             array(
                 'title' => __( 'Description', DFRAPI_DOMAIN ),
                 'name' => 'description',
                 'input' => 'text',
                 'operator' => $opFulltext,
+                'help' => $this->help('description')
             ),
             array(
                 'title' => __( 'Tags', DFRAPI_DOMAIN ),
@@ -77,13 +81,15 @@ class Dfrapi_SearchForm
                 'operator' => array(
                     'in'     => __( 'contain', DFRAPI_DOMAIN ),
                     'not_in' => __( 'don\'t contain', DFRAPI_DOMAIN )
-                )
+                ),
+                'help' => $this->help('tags')
             ),
             array(
                 'title' => __( 'Category', DFRAPI_DOMAIN ),
                 'name' => 'category',
                 'input' => 'text',
-                'operator' => $opFulltext
+                'operator' => $opFulltext,
+                'help' => $this->help('category')
             ),
             array(
                 'title' => __( 'Product type', DFRAPI_DOMAIN ),
@@ -93,7 +99,8 @@ class Dfrapi_SearchForm
                     'products' => __( 'Product', DFRAPI_DOMAIN ),
                     'coupons' => __( 'Coupon', DFRAPI_DOMAIN )
                 ),
-                'operator' => $opIs
+                'operator' => $opIs,
+                'help' => $this->help('type')
             ),
             array(
                 'title' => __( 'Currency', DFRAPI_DOMAIN ),
@@ -112,67 +119,78 @@ class Dfrapi_SearchForm
                 	'NZD' => 'NZD',
                 	'TRY' => 'TRY',
                 ),
-                'operator' => $opIsIsnt
+                'operator' => $opIsIsnt,
+                'help' => $this->help('currency')
             ),
             array(
                 'title' => __( 'Price', DFRAPI_DOMAIN ),
                 'name' => 'price',
                 'input' => 'range',
-                'operator' => $opRange
+                'operator' => $opRange,
+                'help' => $this->help('price')
             ),
             array(
                 'title' => __( 'Sale Price', DFRAPI_DOMAIN ),
                 'name' => 'saleprice',
                 'input' => 'range',
-                'operator' => $opRange
+                'operator' => $opRange,
+                'help' => $this->help('saleprice')
             ),
             array(
                 'title' => __( 'Network', DFRAPI_DOMAIN ),
                 'name' => 'source_id',
                 'input' => 'network',
-                'operator' => $opIsIsnt
+                'operator' => $opIsIsnt,
+                'help' => $this->help('source_id')
             ),
             array(
                 'title' => __( 'Merchant', DFRAPI_DOMAIN ),
                 'name' => 'merchant_id',
                 'input' => 'merchant',
-                'operator' => $opIsIsnt
+                'operator' => $opIsIsnt,
+                'help' => $this->help('merchant_id')
             ),
             array(
                 'title' => __( 'On Sale', DFRAPI_DOMAIN ),
                 'name' => 'onsale',
                 'input' => 'none',
-                'operator' => $opYesNo
+                'operator' => $opYesNo,
+                'help' => $this->help('onsale')
             ),
             array(
                 'title' => __( 'Discount', DFRAPI_DOMAIN ),
                 'name' => 'salediscount',
                 'input' => 'range',
-                'operator' => $opRange
+                'operator' => $opRange,
+                'help' => $this->help('salediscount')
             ),
             array(
                 'title' => __( 'Has Image', DFRAPI_DOMAIN ),
                 'name' => 'image',
                 'input' => 'none',
-                'operator' => $opYesNo
+                'operator' => $opYesNo,
+                'help' => $this->help('image')
             ),
             array(
                 'title' => __( 'Last updated', DFRAPI_DOMAIN ),
                 'name' => 'time_updated',
                 'input' => 'range',
                 'operator' => array('lt' => 'before', 'gt' => 'after', 'between' => 'between'),
+                'help' => $this->help('time_updated')
             ),
             array(
                 'title' => __( 'Limit', DFRAPI_DOMAIN ),
                 'name' => 'limit',
                 'input' => 'text',
-                'operator' => array('is' => 'is')
+                'operator' => array('is' => 'is'),
+                'help' => $this->help('limit')
             ),
             array(
                 'title' => __( 'Sort By', DFRAPI_DOMAIN ),
                 'name' => 'sort',
                 'input' => 'none',
-                'operator' => $sortOpts
+                'operator' => $sortOpts,
+                'help' => $this->help('sort')
             ),
             array(
                 'title' => __( 'Exclude Duplicates', DFRAPI_DOMAIN ),
@@ -180,7 +198,8 @@ class Dfrapi_SearchForm
                 'input' => 'text',
                 'operator' => array(
                     'is' => __( 'matching these fields', DFRAPI_DOMAIN ),
-                )
+                ),
+                'help' => $this->help('duplicates')
             )
         );
     }
@@ -449,8 +468,10 @@ class Dfrapi_SearchForm
                     <div class='value'>{$input}</div>
                 </div>
                 <div class='plusminus'><a class='minus'></a> </div>
-                <div class='field'><select name='{$pfx}[field]' style='width: 95%'>{$fieldOpts}</select></div>
+                <div class='field'><select name='{$pfx}[field]' style='width: 140px'>{$fieldOpts}</select><a href='#' class='dfrapi_search_help'>?</a></div>
                 <div class='operator'>{$operator}</div>
+                <div class='clearfix'></div>
+                <div class='help' style='display:none;'><a href='#' class='dfrapi_search_help'><span class='dashicons dashicons-no'> </span></a>{$field['help']}</div>
             </div>
         ";
     }
@@ -671,5 +692,54 @@ class Dfrapi_SearchForm
         return $filters;
 
     }
+    
+    function help($field) {
+    	
+    	$help = array();
+    	
+    	// Any
+    	$help['any'] = '<h3>' . __('Any field', DFRAPI_DOMAIN ) . '</h3>';
+    	$help['any'] .= '<p>' . __( 'Search all text fields at once (product name, product description, brand, ISBN, EAN, etc.). Does not search on image, currency, or price fields.', DFRAPI_DOMAIN ) . '</p>';
+    	
+    	// Name
+    	$help['name'] = '<h3>' . __('Product name', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['name'] .= '<p>' . __( 'Search by product name to narrow your results.', DFRAPI_DOMAIN ) . '</p>';
+    	
+    	// Brand
+    	$help['brand'] = '<h3>' . __('Brand', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['brand'] .= '<p>' . __( 'Search by brand name to get specific results. Not every product has a brand name.', DFRAPI_DOMAIN ) . '</p>';
+    	
+    	// Description
+    	$help['description'] = '<h3>' . __('Description', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['description'] .= '<p>' . __( 'Search on the product description field.', DFRAPI_DOMAIN ) . '</p>';
+    	
+    	// Exclude Duplicates
+    	$help['duplicates'] = '<h3>' . __('Exclude Duplicates', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['duplicates'] .= '<p>' . __( 'Exclude products that have duplicate fields. Possible values are: ', DFRAPI_DOMAIN ) . '<br />';
+    	$help['duplicates'] .= '<tt>' . __('name', DFRAPI_DOMAIN ) . '</tt>, ';
+    	$help['duplicates'] .= '<tt>' . __('brand', DFRAPI_DOMAIN ) . '</tt>, ';
+    	$help['duplicates'] .= '<tt>' . __('currency', DFRAPI_DOMAIN ) . '</tt>, ';
+    	$help['duplicates'] .= '<tt>' . __('price', DFRAPI_DOMAIN ) . '</tt>, ';
+    	$help['duplicates'] .= '<tt>' . __('saleprice', DFRAPI_DOMAIN ) . '</tt>, ';
+    	$help['duplicates'] .= '<tt>' . __('source_id', DFRAPI_DOMAIN ) . '</tt>, ';
+    	$help['duplicates'] .= '<tt>' . __('merchant_id', DFRAPI_DOMAIN ) . '</tt>, ';
+    	$help['duplicates'] .= '<tt>' . __('onsale', DFRAPI_DOMAIN ) . '</tt>, ';
+    	$help['duplicates'] .= '<tt>' . __('image', DFRAPI_DOMAIN ) . '</tt>, ';
+    	$help['duplicates'] .= '<tt>' . __('thumbnail', DFRAPI_DOMAIN ) . '</tt>';
+		$help['duplicates'] .= '</p>';
+		$help['duplicates'] .= '<h3>' . __('Examples', DFRAPI_DOMAIN ) . '</h3>';
+    	$help['duplicates'] .= '<p>';
+    	$help['duplicates'] .= '<tt>' . __('name image</tt> - Exclude products with the same name AND the same image URL.', DFRAPI_DOMAIN ) . '<br />';
+    	$help['duplicates'] .= '<tt>' . __('name|image</tt> - Exclude products with the same name OR the same image URL.', DFRAPI_DOMAIN ) . '<br />';
+    	$help['duplicates'] .= '<tt>' . __('merchant_id name|image</tt> - Exclude products which have the same merchant AND their name OR image URL are the same.', DFRAPI_DOMAIN ) . '<br />';
+		$help['duplicates'] .= '</p>';
+    	
+    	if (isset($help[$field])) {
+    		return $help[$field];
+    	} else {
+    		return '';
+    	}
+    	
+    } // help()
 
 }

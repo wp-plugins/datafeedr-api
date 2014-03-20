@@ -25,7 +25,7 @@ if ( ! class_exists( 'Dfrapi_Configuration' ) ) {
 		function admin_menu() {
 			add_submenu_page(
 				'dfrapi',
-				__( 'Datafeedr API Configuration', DFRAPI_DOMAIN ), 
+				__( 'Configuration &#8212; Datafeedr API', DFRAPI_DOMAIN ), 
 				__( 'Configuration', DFRAPI_DOMAIN ), 
 				'manage_options', 
 				'dfrapi',
@@ -43,7 +43,7 @@ if ( ! class_exists( 'Dfrapi_Configuration' ) ) {
 
 		function output() {
 			echo '<div class="wrap" id="' . $this->key . '">';
-			echo '<h2>' . dfrapi_setting_pages( $this->page ) . '</h2>';
+			echo '<h2>' . dfrapi_setting_pages( $this->page ) . ' &#8212; Datafeedr API</h2>';
 			echo '<form method="post" action="options.php">';
 			wp_nonce_field( 'update-options' );
 			settings_fields( $this->page );

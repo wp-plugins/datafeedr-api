@@ -33,7 +33,7 @@ if ( ! class_exists( 'Dfrapi_Networks' ) ) {
 		function admin_menu() {
 			add_submenu_page(
 				'dfrapi',
-				__( 'Networks', DFRAPI_DOMAIN ), 
+				__( 'Networks &#8212; Datafeedr API', DFRAPI_DOMAIN ), 
 				__( 'Networks', DFRAPI_DOMAIN ), 
 				'manage_options', 
 				$this->key,
@@ -51,7 +51,7 @@ if ( ! class_exists( 'Dfrapi_Networks' ) ) {
 
 		function output() {			
 			echo '<div class="wrap" id="' . $this->key . '">';
-			echo '<h2>' . dfrapi_setting_pages( $this->page ) . '</h2>';
+			echo '<h2>' . dfrapi_setting_pages( $this->page ) . ' &#8212; Datafeedr API</h2>';
 			if ( $errors = $this->api_errors() ) {
 				echo dfrapi_html_output_api_error( $errors );
 			} else {
@@ -80,7 +80,7 @@ if ( ! class_exists( 'Dfrapi_Networks' ) ) {
 		}
 	
 		function section_networks_desc() { 
-			echo __( 'Select the affiliate networks that you belong to and enter your affiliate ID for each.', DFRAPI_DOMAIN );
+			echo __( 'Select the affiliate networks you belong to, enter your affiliate ID for each then click <strong>[Save Changes]</strong>.', DFRAPI_DOMAIN );
 		}
 		
 		function field_network_ids() {
