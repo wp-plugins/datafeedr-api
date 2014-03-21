@@ -115,6 +115,7 @@ Search Form CSS
 	margin-left: 3px;
 	border-bottom: 1px #0074a2 dotted;
 	text-decoration: none;
+	display: none;
 }
 
 #dfrapi_search_form > .filter > .help
@@ -256,6 +257,7 @@ and (max-width : 1299px) {
 	margin-top: 10px;
 	line-height: 1em;
 	font-size: 13px;
+	margin-left: 5px;
 }
 
 #dfrapi_search_form_filter a {
