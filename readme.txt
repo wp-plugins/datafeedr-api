@@ -4,7 +4,7 @@ Contributors: datafeedr.com
 Tags: woocommerce, datafeedr, affiliate products, dfrapi, adrecord, adtraction, affiliate window, affiliate4you, affilinet, avangate, avantlink, belboon, betty mills, bol.com, cj, clickbank, clixgalore, commission factory, commission junction, commission monster, daisycon, dgm, impact radius, linkconnector, linkshare, m4n, onenetworkdirect, paid on results, partner-ads, pepperjam, regnow, revresponse, shareasale, superclix, tradedoubler, tradetracker, webgains, zanox
 Requires at least: 3.8
 Tested up to: 3.9-beta2
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -65,6 +65,8 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 * Added message for database rotation time between 8:00am and 8:20am GMT.
 * Added search form help text.
 * Changed some labels in the search form.
+* Added support for Affiliator affiliate network.
+* Updated Datafeedr API library.
 
 = 1.0.4 =
 * Tweaked search form css.

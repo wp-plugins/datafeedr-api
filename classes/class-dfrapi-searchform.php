@@ -404,6 +404,7 @@ class Dfrapi_SearchForm
         $value = $this->get($params, 'value');
         $operator = $this->get($params, 'operator');
         $input = "";
+        $percent_sign = ( isset( $field['name'] ) && $field['name'] == 'salediscount') ? '%' : '';
 
         switch($field['input']) {
             case 'text':
@@ -419,7 +420,7 @@ class Dfrapi_SearchForm
                 $value2 = htmlspecialchars($this->get($params, 'value2'));
                 $and = __( 'and', DFRAPI_DOMAIN );
                 $input = "
-        			<input class='short' name='{$pfx}[value]' type='text' value=\"$value\"/>
+        			<input class='short' name='{$pfx}[value]' type='text' value=\"$value\"/>{$percent_sign}
 		        	<span class='value2' style='display:none'>
 			            $and
 			            <input class='short' name='{$pfx}[value2]' type='text' value=\"$value2\" />
@@ -829,19 +830,20 @@ class Dfrapi_SearchForm
     	$help['duplicates'] = '<h3>' . __('Exclude Duplicates', DFRAPI_DOMAIN ) . '</h3>';    	
     	$help['duplicates'] .= '<p>' . __( 'Exclude items that contain identical product names, image URLs, etc. Enter one or more terms from the list below. Separate terms by a space (meaning AND) or | (pipe symbol, meaning OR).', DFRAPI_DOMAIN ) . '<br />';
     	$help['duplicates'] .= '<p>' . __( 'Enter one of these terms to exclude duplicates matching these fields:', DFRAPI_DOMAIN ) . '<br />';
-    	$help['duplicates'] .= '<tt>' . __('name', DFRAPI_DOMAIN ) . '</tt>, ';
-    	$help['duplicates'] .= '<tt>' . __('brand', DFRAPI_DOMAIN ) . '</tt>, ';
-    	$help['duplicates'] .= '<tt>' . __('currency', DFRAPI_DOMAIN ) . '</tt>, ';
-    	$help['duplicates'] .= '<tt>' . __('price', DFRAPI_DOMAIN ) . '</tt>, ';
-    	$help['duplicates'] .= '<tt>' . __('saleprice', DFRAPI_DOMAIN ) . '</tt>, ';
-    	$help['duplicates'] .= '<tt>' . __('source_id', DFRAPI_DOMAIN ) . '</tt>, ';
-    	$help['duplicates'] .= '<tt>' . __('merchant_id', DFRAPI_DOMAIN ) . '</tt>, ';
-    	$help['duplicates'] .= '<tt>' . __('onsale', DFRAPI_DOMAIN ) . '</tt>, ';
-    	$help['duplicates'] .= '<tt>' . __('image', DFRAPI_DOMAIN ) . '</tt>, ';
+    	$help['duplicates'] .= '<tt>' . __('name', DFRAPI_DOMAIN ) . '</tt><br />';
+    	$help['duplicates'] .= '<tt>' . __('brand', DFRAPI_DOMAIN ) . '</tt><br />';
+    	$help['duplicates'] .= '<tt>' . __('currency', DFRAPI_DOMAIN ) . '</tt><br />';
+    	$help['duplicates'] .= '<tt>' . __('price', DFRAPI_DOMAIN ) . '</tt><br />';
+    	$help['duplicates'] .= '<tt>' . __('saleprice', DFRAPI_DOMAIN ) . '</tt><br />';
+    	$help['duplicates'] .= '<tt>' . __('source_id', DFRAPI_DOMAIN ) . '</tt><br />';
+    	$help['duplicates'] .= '<tt>' . __('merchant_id', DFRAPI_DOMAIN ) . '</tt><br />';
+    	$help['duplicates'] .= '<tt>' . __('onsale', DFRAPI_DOMAIN ) . '</tt><br />';
+    	$help['duplicates'] .= '<tt>' . __('image', DFRAPI_DOMAIN ) . '</tt><br />';
     	$help['duplicates'] .= '<tt>' . __('thumbnail', DFRAPI_DOMAIN ) . '</tt>';
 		$help['duplicates'] .= '</p>';
 		$help['duplicates'] .= '<h3>' . __('Examples', DFRAPI_DOMAIN ) . '</h3>';
     	$help['duplicates'] .= '<p>';
+    	$help['duplicates'] .= '<tt>' . __('image</tt> - Exclude items which have the same image URL.', DFRAPI_DOMAIN ) . '<br />';
     	$help['duplicates'] .= '<tt>' . __('name image</tt> - Exclude items with the same name AND the same image URL.', DFRAPI_DOMAIN ) . '<br />';
     	$help['duplicates'] .= '<tt>' . __('name|image</tt> - Exclude items with the same name OR the same image URL.', DFRAPI_DOMAIN ) . '<br />';
     	$help['duplicates'] .= '<tt>' . __('merchant_id name|image</tt> - Exclude items which have the same merchant id AND (product name OR image URL).', DFRAPI_DOMAIN ) . '<br />';
