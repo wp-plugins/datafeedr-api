@@ -41,20 +41,20 @@ class Dfrapi_SearchForm
             '+salediscount' => __( 'Discount Ascending', DFRAPI_DOMAIN ),
             '-salediscount' => __( 'Discount Decending', DFRAPI_DOMAIN ),
             '+merchant'     => __( 'Merchant', DFRAPI_DOMAIN ),
-            '+time_updated' => __( 'Last updated Ascending', DFRAPI_DOMAIN ),
-            '-time_updated' => __( 'Last updated Decending', DFRAPI_DOMAIN )
+            '+time_updated' => __( 'Last Updated Ascending', DFRAPI_DOMAIN ),
+            '-time_updated' => __( 'Last Updated Decending', DFRAPI_DOMAIN )
         );
 
         return array(
             array(
-                'title' => __( 'Any field', DFRAPI_DOMAIN ),
+                'title' => __( 'Any Field', DFRAPI_DOMAIN ),
                 'name' => 'any',
                 'input' => 'text',
                 'operator' => $opFulltext,
                 'help' => $this->help('any')
             ),
             array(
-                'title' => __( 'Product name', DFRAPI_DOMAIN ),
+                'title' => __( 'Product Name', DFRAPI_DOMAIN ),
                 'name' => 'name',
                 'input' => 'text',
                 'operator' => $opFulltextExact,
@@ -92,7 +92,7 @@ class Dfrapi_SearchForm
                 'help' => $this->help('category')
             ),
             array(
-                'title' => __( 'Product type', DFRAPI_DOMAIN ),
+                'title' => __( 'Product Type', DFRAPI_DOMAIN ),
                 'name' => 'type',
                 'input' => 'select',
                 'options' => array(
@@ -107,17 +107,17 @@ class Dfrapi_SearchForm
                 'name' => 'currency',
                 'input' => 'select',
                 'options' => array(
-                	'USD' => 'USD', 
-                	'CAD' => 'CAD', 
-                	'GBP' => 'GBP', 
-                	'EUR' => 'EUR',
                 	'AUD' => 'AUD',
-                	'DKK' => 'DKK',
-                	'SEK' => 'SEK',
-                	'NOK' => 'NOK',
+                	'CAD' => 'CAD', 
                 	'CHF' => 'CHF',
+                	'DKK' => 'DKK',
+                	'EUR' => 'EUR',
+                	'GBP' => 'GBP', 
+                	'NOK' => 'NOK',
                 	'NZD' => 'NZD',
+                	'SEK' => 'SEK',
                 	'TRY' => 'TRY',
+                	'USD' => 'USD', 
                 ),
                 'operator' => $opIsIsnt,
                 'help' => $this->help('currency')
@@ -172,7 +172,7 @@ class Dfrapi_SearchForm
                 'help' => $this->help('image')
             ),
             array(
-                'title' => __( 'Last updated', DFRAPI_DOMAIN ),
+                'title' => __( 'Last Updated', DFRAPI_DOMAIN ),
                 'name' => 'time_updated',
                 'input' => 'range',
                 'operator' => array('lt' => 'before', 'gt' => 'after', 'between' => 'between'),
@@ -693,29 +693,142 @@ class Dfrapi_SearchForm
 
     }
     
+    function help_tip($tip) {
+    	return '
+    	<div class="dfrapi_search_tip">
+    		<span class="dashicons dashicons-lightbulb"></span>
+    		<p>
+    			<strong>' . __( 'TIP:', DFRAPI_DOMAIN ) . '</strong> ' .
+    			$tip . '
+    		</p>
+    	</div>
+    	';
+    }
+    
+    function help_operators() {
+    	return '
+    		<p>
+    			<span class="dashicons dashicons-info"></span> 
+    			<em>
+    				<a href="https://v4.datafeedr.com/node/620" target="_blank">' . __('Learn more', DFRAPI_DOMAIN ) . '</a> ' . 
+    				__('about advanced uses of this field.', DFRAPI_DOMAIN ) . '
+    			</em>
+    		</p>
+    	';
+    }
+    
     function help($field) {
     	
     	$help = array();
     	
     	// Any
-    	$help['any'] = '<h3>' . __('Any field', DFRAPI_DOMAIN ) . '</h3>';
-    	$help['any'] .= '<p>' . __( 'Search all text fields at once (product name, product description, brand, ISBN, EAN, etc.). Does not search on image, currency, or price fields.', DFRAPI_DOMAIN ) . '</p>';
+    	$help['any'] = '<h3>' . __('Any Field', DFRAPI_DOMAIN ) . '</h3>';
+    	$help['any'] .= '<p>' . __( 'Search all indexed text fields at once to return a broad set of results.', DFRAPI_DOMAIN ) . '</p>';
+    	$help['any'] .= '<p>' . __( 'The fields listed below are indexed as text fields and searchable using Any Field. Image, currency, and price fields are not searched.', DFRAPI_DOMAIN ) . '</p>';
+    	$help['any'] .= '<p><em>' . __( '*Note that not all merchants and networks provide every field. ', DFRAPI_DOMAIN ) . '</em></p>';
+    	$help['any'] .= '<p>' . __( 'Fields searched using Any Field:', DFRAPI_DOMAIN ) . '</p>';
+    	$help['any'] .= '<table width="100%" border="0" style="margin-bottom:20px"><tr><td width="33%" valign="top">accommodationtype<br />address<br />artist<br />author<br />bestsellers<br />brand<br />category<br />city<br />color<br />commissiontype<br />condition<br />country<br />county<br />description<br />destination<br />discount</td><td width="33%" valign="top">discounttype<br />ean<br />fabric<br />featured<br />flavour<br />gender<br />genre<br />isbn<br />language<br />location<br />manufacturer<br />manufacturerid<br />material<br />model<br />mpn<br />name</td><td width="33%" valign="top">offercode<br />offertype<br />platform<br />productnumber<br />promo<br />publisher<br />rating<br />region<br />size<br />sku<br />stars<br />state<br />subcategory<br />tags<br />upc<br />weight</td></tr></table>';
+    	$help['any'] .= $this->help_operators();
     	
     	// Name
-    	$help['name'] = '<h3>' . __('Product name', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['name'] = '<h3>' . __('Product Name', DFRAPI_DOMAIN ) . '</h3>';    	
     	$help['name'] .= '<p>' . __( 'Search by product name to narrow your results.', DFRAPI_DOMAIN ) . '</p>';
-    	
+    	$help['name'] .= $this->help_tip( __( 'Some merchants include color, size, gender, product codes, sale information and promotions in the product name field.', DFRAPI_DOMAIN ) );
+    	$help['name'] .= $this->help_operators();
+
     	// Brand
     	$help['brand'] = '<h3>' . __('Brand', DFRAPI_DOMAIN ) . '</h3>';    	
-    	$help['brand'] .= '<p>' . __( 'Search by brand name to get specific results. Not every product has a brand name.', DFRAPI_DOMAIN ) . '</p>';
-    	
+    	$help['brand'] .= '<p>' . __( 'Search by brand name to get specific results. Not every item has a brand name.', DFRAPI_DOMAIN ) . '</p>';
+    	$help['brand'] .= $this->help_tip( __( 'Enter the shorter version of a brand name in this field. Omit words such as "Incorporated", "Limited" and their abbreviations like Inc., Ltd. and so on.', DFRAPI_DOMAIN ) );
+    	$help['brand'] .= $this->help_operators();
+
     	// Description
     	$help['description'] = '<h3>' . __('Description', DFRAPI_DOMAIN ) . '</h3>';    	
-    	$help['description'] .= '<p>' . __( 'Search on the product description field.', DFRAPI_DOMAIN ) . '</p>';
-    	
+    	$help['description'] .= '<p>' . __( 'Search the description field for product attributes such as size, color, material, or usage.', DFRAPI_DOMAIN ) . '</p>';
+    	$help['description'] .= $this->help_tip( __( 'Most merchants provide a product description. Some product details may only appear in the description and not in any other field. However, some merchants duplicate the product name or product code in the description field without supplying additional details or leave the product description blank.', DFRAPI_DOMAIN ) );
+    	$help['description'] .= $this->help_operators();
+
+    	// Tags
+    	$help['tags'] = '<h3>' . __('Tags', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['tags'] .= '<p>' . __( 'Limit search results based on product tag and keyword information.', DFRAPI_DOMAIN ) . '</p>';
+    	$help['tags'] .= $this->help_tip( __( 'This field contains data from various keyword-related fields provided by the merchant. This field does not always exist.', DFRAPI_DOMAIN ) );
+
+    	// Category
+    	$help['category'] = '<h3>' . __('Category', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['category'] .= '<p>' . __( 'Limit search results based on category information.', DFRAPI_DOMAIN ) . '</p>';
+    	$help['category'] .= $this->help_tip( __( 'This field contains data from various category-related fields provided by the merchant. This field does not always exist.', DFRAPI_DOMAIN ) );
+    	$help['category'] .= $this->help_operators();
+
+    	// Type
+    	$help['type'] = '<h3>' . __('Product Type', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['type'] .= '<p>' . __( 'Limit your search results to one type of item, either Product or Coupon.', DFRAPI_DOMAIN ) . '</p>';
+    	$help['type'] .= $this->help_tip( __( 'In order to use this filter, you must have already selected merchants that provide that type of item. For example, if you choose "Product type: Coupon" but have not selected any merchants that offer coupons, your search will return an error.', DFRAPI_DOMAIN ) );
+
+    	// Currency
+    	$help['currency'] = '<h3>' . __('Currency', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['currency'] .= '<p>' . __( 'Limit your search results to items with a specific currency code.', DFRAPI_DOMAIN ) . '</p>';
+    	$help['currency'] .= $this->help_tip( __( 'Selecting a currency code is one way to limit your search results to items from a specific country. However, not every item has been given a currency code value by the merchant. Items without a currency code will be excluded from your search results.', DFRAPI_DOMAIN ) );
+
+    	// Price
+    	$help['price'] = '<h3>' . __('Price', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['price'] .= '<p>' . __( 'Filter your search results based on price. Return products less than, greater than, or within a price range that you set.', DFRAPI_DOMAIN ) . '</p>';
+    	$help['price'] .= $this->help_tip( __( 'This field does not search on sale price. If you set a price range to less than 30, you will exclude an item with a regular price of 40 that is on sale for less than 30.', DFRAPI_DOMAIN ) );
+
+    	// Sale Price
+    	$help['saleprice'] = '<h3>' . __('Sale Price', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['saleprice'] .= '<p>' . __( 'Filter your search results based on sale price. Return items less than, greater than, or within a sale price range that you set.', DFRAPI_DOMAIN ) . '</p>';
+    	$help['saleprice'] .= $this->help_tip( __( 'This field does not search on regular price.  If you set a sale price range to between 50 and 100, an item with a sale price of 40 will be excluded even if it\'s regular price matches the range you set.', DFRAPI_DOMAIN ) );
+
+    	// Network
+    	$help['source_id'] = '<h3>' . __('Network', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['source_id'] .= '<p>' . __( 'Limit your search results to items from one or more affiliate networks.', DFRAPI_DOMAIN ) . '</p>';
+    	$help['source_id'] .= $this->help_tip( __( 'Affiliate networks are generally country-specific. Using the Network filter is one way to limit your search results by country.', DFRAPI_DOMAIN ) );
+
+    	// Merchant
+    	$help['merchant_id'] = '<h3>' . __('Merchant', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['merchant_id'] .= '<p>' . __( 'Limit your search results to items from one or more merchants.', DFRAPI_DOMAIN ) . '</p>';
+    	$help['merchant_id'] .= $this->help_tip( __( 'Using the Merchant filter is a quick way to exclude unrelated products and reduce the number of API requests made when building a Product Set. For example, if you are creating a Product Set related to cat products, exclude all merchants that only sell dog products.', DFRAPI_DOMAIN ) );
+
+    	// On Sale
+    	$help['onsale'] = '<h3>' . __('On Sale', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['onsale'] .= '<p>' . __( 'Set this field to "<strong>yes</strong>" to return only items which are on sale. To exclude products which are on sale, set this field to "<strong>no</strong>".', DFRAPI_DOMAIN ) . '</p>';
+
+    	// Discount
+    	$help['salediscount'] = '<h3>' . __('Discount', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['salediscount'] .= '<p>' . __( 'Limit your search results to items with a specified discount. Enter the number in terms of percentage (1 - 100) to indicate a discount less than, greater than, or between a given range. You do not need to enter the percentage sign.', DFRAPI_DOMAIN ) . '</p>';
+    	$help['salediscount'] .= $this->help_tip( __( 'To display, for example, only products that are on sale for a discount of 20% or more, choose the "greater than" operator and type "19".', DFRAPI_DOMAIN ) );
+
+    	// Has Image
+    	$help['image'] = '<h3>' . __('Has Image', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['image'] .= '<p>' . __( 'Limit your search results to items which have an image (or which don\'t).', DFRAPI_DOMAIN ) . '</p>';
+    	$help['image'] .= $this->help_tip( __( 'Sometimes the image URL in the merchant\'s data feed is broken. Items with broken images will still return in search results even though there appears to be no image.', DFRAPI_DOMAIN ) );
+
+    	// Last Updated
+    	$help['time_updated'] = '<h3>' . __('Last Updated', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['time_updated'] .= '<p>' . __( 'Filter products by the last time they were updated by the merchant. Enter an English textual datetime description using PHP\'s <a href="http://www.php.net/strtotime" target="_blank">strtotime()</a> function.', DFRAPI_DOMAIN ) . '</p>';
+		$help['time_updated'] .= '<h3>' . __('Examples', DFRAPI_DOMAIN ) . '</h3>';
+    	$help['time_updated'] .= '<p>';
+    	$help['time_updated'] .= '<tt>' . __('last week', DFRAPI_DOMAIN ) . '</tt><br />';
+    	$help['time_updated'] .= '<tt>' . __('2 days ago', DFRAPI_DOMAIN ) . '</tt><br />';
+    	$help['time_updated'] .= '<tt>' . __('1 month ago', DFRAPI_DOMAIN ) . '</tt>';
+		$help['time_updated'] .= '</p>';
+    	$help['time_updated'] .= '<p>' . __( '', DFRAPI_DOMAIN ) . '</p>';
+    	$help['time_updated'] .= $this->help_tip( __( 'An item\'s Last Updated date will not change if the merchant does not change any product information during a data feed update.', DFRAPI_DOMAIN ) );
+
+    	// Limit
+    	$help['limit'] = '<h3>' . __('Limit', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['limit'] .= '<p>' . __( 'Limit the number of items returned in your search results. The maximum number of products that can be returned is 10,000.', DFRAPI_DOMAIN ) . '</p>';
+    	$help['limit'] .= $this->help_tip( __( 'Limiting the number of products returned helps reduce the number of API requests made during searching and updating Product Sets.', DFRAPI_DOMAIN ) );
+
+    	// Sort By
+    	$help['sort'] = '<h3>' . __('Sort By', DFRAPI_DOMAIN ) . '</h3>';    	
+    	$help['sort'] .= '<p>' . __( 'Change the sort criteria by which items are displayed in your search results.', DFRAPI_DOMAIN ) . '</p>';
+    	$help['sort'] .= $this->help_tip( __( 'By default, search results are sorted by relevance. You can change that to sort by price, sale price, discount, or last updated date in ascending order (lowest to highest) or descending order (highest to lowest). You can also sort by merchant, which lists items alphabetically by merchant name.', DFRAPI_DOMAIN ) );
+
     	// Exclude Duplicates
     	$help['duplicates'] = '<h3>' . __('Exclude Duplicates', DFRAPI_DOMAIN ) . '</h3>';    	
-    	$help['duplicates'] .= '<p>' . __( 'Exclude products that have duplicate fields. Possible values are: ', DFRAPI_DOMAIN ) . '<br />';
+    	$help['duplicates'] .= '<p>' . __( 'Exclude items that contain identical product names, image URLs, etc. Enter one or more terms from the list below. Separate terms by a space (meaning AND) or | (pipe symbol, meaning OR).', DFRAPI_DOMAIN ) . '<br />';
+    	$help['duplicates'] .= '<p>' . __( 'Enter one of these terms to exclude duplicates matching these fields:', DFRAPI_DOMAIN ) . '<br />';
     	$help['duplicates'] .= '<tt>' . __('name', DFRAPI_DOMAIN ) . '</tt>, ';
     	$help['duplicates'] .= '<tt>' . __('brand', DFRAPI_DOMAIN ) . '</tt>, ';
     	$help['duplicates'] .= '<tt>' . __('currency', DFRAPI_DOMAIN ) . '</tt>, ';
@@ -729,10 +842,12 @@ class Dfrapi_SearchForm
 		$help['duplicates'] .= '</p>';
 		$help['duplicates'] .= '<h3>' . __('Examples', DFRAPI_DOMAIN ) . '</h3>';
     	$help['duplicates'] .= '<p>';
-    	$help['duplicates'] .= '<tt>' . __('name image</tt> - Exclude products with the same name AND the same image URL.', DFRAPI_DOMAIN ) . '<br />';
-    	$help['duplicates'] .= '<tt>' . __('name|image</tt> - Exclude products with the same name OR the same image URL.', DFRAPI_DOMAIN ) . '<br />';
-    	$help['duplicates'] .= '<tt>' . __('merchant_id name|image</tt> - Exclude products which have the same merchant AND their name OR image URL are the same.', DFRAPI_DOMAIN ) . '<br />';
+    	$help['duplicates'] .= '<tt>' . __('name image</tt> - Exclude items with the same name AND the same image URL.', DFRAPI_DOMAIN ) . '<br />';
+    	$help['duplicates'] .= '<tt>' . __('name|image</tt> - Exclude items with the same name OR the same image URL.', DFRAPI_DOMAIN ) . '<br />';
+    	$help['duplicates'] .= '<tt>' . __('merchant_id name|image</tt> - Exclude items which have the same merchant id AND (product name OR image URL).', DFRAPI_DOMAIN ) . '<br />';
 		$help['duplicates'] .= '</p>';
+	    $help['duplicates'] .= $this->help_tip( __( 'By excluding duplicates, you will eliminate all but one item. For example, if 20 products have identical image URLs and you exclude duplicates matching the <strong>image</strong> field, <em>one</em> item will be returned and 19 items will be excluded.', DFRAPI_DOMAIN ) );
+
     	
     	if (isset($help[$field])) {
     		return $help[$field];

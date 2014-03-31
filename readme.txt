@@ -62,6 +62,9 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 
 = 1.0.5 =
 * Tweaked search form css.
+* Added message for database rotation time between 8:00am and 8:20am GMT.
+* Added search form help text.
+* Changed some labels in the search form.
 
 = 1.0.4 =
 * Tweaked search form css.

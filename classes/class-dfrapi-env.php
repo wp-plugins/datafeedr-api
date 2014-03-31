@@ -28,6 +28,10 @@ if ( ! class_exists( 'Dfrapi_Env' ) ) {
 			if ( self::missing_affiliate_ids() ) {
 				dfrapi_admin_messages( 'missing_affiliate_ids' );
 			}
+			
+			if ( self::check_gmt_time() ) {
+				dfrapi_admin_messages( 'database_rotation' );
+			}
 		}
 
 		static function api_keys_exist() {
@@ -83,6 +87,14 @@ if ( ! class_exists( 'Dfrapi_Env' ) ) {
 						return true;
 					}
 				}
+			}
+			return false;
+		}
+	
+		static function check_gmt_time() {
+			$gmt_time = gmdate( 'Gis' );
+			if ( $gmt_time > 80000 && $gmt_time < 82000 ) { 
+				return true;
 			}
 			return false;
 		}

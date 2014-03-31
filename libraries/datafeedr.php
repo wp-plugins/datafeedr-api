@@ -3,7 +3,7 @@
 /**
  * Datafeedr Api Client Library.
  *
- * @version 0.1b.6544
+ * @version 0.1b.6644
  * @copyright Datafeedr 2007 ~ 2013 - All Rights Reserved
  *
  * @mainpage
@@ -56,7 +56,7 @@ class DatafeedrApi
     const DEFAULT_URL = 'http://api.datafeedr.com';
     const DEFAULT_TIMEOUT = 30;
 
-    const VERSION = '0.1b.6544';
+    const VERSION = '0.1b.6644';
 
     /**
      * Constructor.
@@ -101,8 +101,9 @@ class DatafeedrApi
                 $this->_transport = array($this, '_transportSocket');
                 break;
             default:
-                if(!is_callable($transport))
+                if(!is_callable($transport)) {
                     throw new DatafeedrError("Transport must be a function");
+                }
                 $this->_transport = $transport;
         }
     }
@@ -286,8 +287,9 @@ class DatafeedrApi
      *
     **/
     public function apiCall($action, $request = NULL) {
-        if(!$request)
+        if(!$request) {
             $request = array();
+        }
 
         $request['aid'] = $this->_accessId;
         $request['timestamp'] = gmdate('Y-m-d H:i:s');
@@ -335,10 +337,12 @@ class DatafeedrApi
     }
 
     protected function _get($obj, $prop, $default=NULL) {
-        if(is_array($obj) && isset($obj[$prop]))
+        if(is_array($obj) && isset($obj[$prop])) {
             return $obj[$prop];
-        if(is_object($obj) && isset($obj->$prop))
+        }
+        if(is_object($obj) && isset($obj->$prop)) {
             return $obj->$prop;
+        }
         return $default;
     }
 
@@ -397,8 +401,9 @@ class DatafeedrApi
 
         $status = 200;
         if(isset($http_response_header) && isset($http_response_header[0])) {
-            if(preg_match('/HTTP.+?(\d\d\d)/', $http_response_header[0], $match))
+            if(preg_match('/HTTP.+?(\d\d\d)/', $http_response_header[0], $match)) {
                 $status = intval($match[1]);
+            }
         } else if($response === false) {
             throw new DatafeedrHTTPError("HTTP error: invalid response");
         }
@@ -448,15 +453,81 @@ class DatafeedrApi
 }
 }
 
-if(!class_exists('DatafeedrSearchRequest', false)) {
+if(!class_exists('DatafeedrSearchRequestBase', false)) {
+/**
+ * Generic Datafeedr API search request.
+ **/
+class DatafeedrSearchRequestBase
+{
+    protected $_api;
+    protected $_lastResponse;
 
+    /**
+     * Constructor.
+     *
+     * @param object $api DatafeedrApi object.
+     *
+     **/
+    public function __construct($api) {
+        $this->_api = $api;
+    }
+
+    /**
+     * Get the number of found products.
+     *
+     * @return int
+     *
+     **/
+    public function getFoundCount() {
+        return $this->_responseItem('found_count', 0);
+    }
+
+    /**
+     * Get the number of products that can be retrieved from the server.
+     *
+     * @return int
+     *
+     **/
+    public function getResultCount() {
+        return $this->_responseItem('result_count', 0);
+    }
+
+    /**
+     * Return the response from the last search.
+     *
+     * @return array
+     *
+     **/
+    public function getResponse() {
+        return $this->_lastResponse;
+    }
+
+    protected function _responseItem($prop, $default) {
+        if(is_null($this->_lastResponse)) {
+            throw new DatafeedrError("Reading from an empty request");
+        }
+        if(is_object($this->_lastResponse) && isset($this->_lastResponse->$prop)) {
+            return $this->_lastResponse->$prop;
+        }
+        if(is_array($this->_lastResponse) && isset($this->_lastResponse[$prop])) {
+            return $this->_lastResponse[$prop];
+        }
+        return $default;
+    }
+
+    function _apiCall($action, $request = NULL) {
+        $this->_lastResponse = $this->_api->apiCall($action, $request);
+    }
+
+}
+}
+
+if(!class_exists('DatafeedrSearchRequest', false)) {
 /**
  * Search request for Datafeedr API.
 **/
-class DatafeedrSearchRequest
+class DatafeedrSearchRequest extends DatafeedrSearchRequestBase
 {
-    protected $_api;
-
     /**
      * Constructor.
      *
@@ -464,7 +535,8 @@ class DatafeedrSearchRequest
      *
     **/
     public function __construct($api) {
-        $this->_api         = $api;
+        parent::__construct($api);
+
         $this->_query       = array();
         $this->_sort        = array();
         $this->_fields      = array();
@@ -472,7 +544,6 @@ class DatafeedrSearchRequest
         $this->_offset      = 0;
         $this->_priceGroups = 0;
         $this->_excludeDuplicates = "";
-        $this->_lastResponse = NULL;
     }
 
     /**
@@ -509,7 +580,7 @@ class DatafeedrSearchRequest
     }
 
     /**
-     * Set a list of fields to retrieve.
+     * Set which fields to retrieve.
      *
      * @param  array $fields List of field names.
      * @return $this
@@ -528,8 +599,9 @@ class DatafeedrSearchRequest
      *
     **/
     public function excludeDuplicates($filter) {
-        if(is_array($filter))
+        if(is_array($filter)) {
             $filter = implode(' ', $filter);
+        }
         $this->_excludeDuplicates = $filter;
         return $this;
     }
@@ -570,15 +642,6 @@ class DatafeedrSearchRequest
         return $this;
     }
 
-    /**
-     * Get a number of found products.
-     *
-     * @return int
-     *
-    **/
-    public function getFoundCount() {
-        return $this->_responseItem('total_found', 0);
-    }
 
     /**
      * Get found networks.
@@ -654,41 +717,20 @@ class DatafeedrSearchRequest
         if(!isset($params['query'])) {
             throw new DatafeedrError("Query can't be empty");
         }
-        $this->_lastResponse = $this->_api->apiCall('search', $params);
+        $this->_apiCall('search', $params);
         return $this->_responseItem('products', array());
     }
 
-    /**
-     * Return the response from the last search.
-     *
-     * @return array
-     *
-     **/
-    public function getResponse() {
-        return $this->_lastResponse;
-    }
-
-    protected function _responseItem($prop, $default) {
-        if(is_null($this->_lastResponse)) {
-            throw new DatafeedrError("Reading from an empty request");
-        }
-        if(is_object($this->_lastResponse) && isset($this->_lastResponse->$prop)) {
-            return $this->_lastResponse->$prop;
-        }
-        if(is_array($this->_lastResponse) && isset($this->_lastResponse[$prop])) {
-            return $this->_lastResponse[$prop];
-        }
-        return $default;
-    }
 }
 }
 
 if(!class_exists('DatafeedrAmazonRequest', false)) {
-
-class DatafeedrAmazonRequest
+/**
+ * Generic Amazon request.
+ **/
+class DatafeedrAmazonRequest extends DatafeedrSearchRequestBase
 {
     protected $_found = -1;
-    protected $_api;
 
     const AWS_VERSION = "2011-08-01";
 
@@ -699,6 +741,7 @@ class DatafeedrAmazonRequest
      *
     **/
     public function __construct($api, $awsAccessKeyId,  $awsSecretKey, $awsAssociateTag, $locale="US") {
+        parent::__construct($api);
         $this->_hosts = array(
             "CA" => "webservices.amazon.ca",
             "CN" => "webservices.amazon.cn",
@@ -711,7 +754,6 @@ class DatafeedrAmazonRequest
             "US" => "webservices.amazon.com",
         );
 
-        $this->_api    = $api;
         $this->_params = array();
         $this->_locale = strtoupper($locale);
 
@@ -738,9 +780,11 @@ class DatafeedrAmazonRequest
         $params = array_filter($params);
 
         if(!is_null($defaults)) {
-            foreach($defaults as $k => $v)
-                if(!isset($params[$k]))
+            foreach($defaults as $k => $v) {
+                if(!isset($params[$k])) {
                     $params[$k] = $v;
+                }
+            }
         }
 
         $params["Operation"]      = $operation;
@@ -753,8 +797,9 @@ class DatafeedrAmazonRequest
         ksort($params);
         $query = array();
         foreach($params as $k => $v) {
-            if(is_array($v))
+            if(is_array($v)) {
                 $v = implode(',', $v);
+            }
             $query []= $k . '=' . rawurlencode($v);
         }
         $query = implode('&', $query);
@@ -768,7 +813,9 @@ class DatafeedrAmazonRequest
 }
 
 if(!class_exists('DatafeedrAmazonSearchRequest', false)) {
-
+/**
+ * Amazon search request.
+ **/
 class DatafeedrAmazonSearchRequest extends DatafeedrAmazonRequest
 {
     /**
@@ -798,25 +845,16 @@ class DatafeedrAmazonSearchRequest extends DatafeedrAmazonRequest
             'SearchIndex'   => 'All',
         );
         $url = $this->_amazonUrl('ItemSearch', $this->_params, $defaults);
-        $response = $this->_api->apiCall('amazon_search', array('url' => $url));
-        $this->_found = $response['total_found'];
-        return $response['products'];
-    }
-
-    /**
-     * Get a number of found products.
-     *
-     * @return int
-     *
-    **/
-    public function getFoundCount() {
-        return $this->_found;
+        $this->_apiCall('amazon_search', array('url' => $url));
+        return $this->_responseItem('products', array());
     }
 }
 }
 
 if(!class_exists('DatafeedrAmazonLookupRequest', false)) {
-
+/**
+ * Amazon lookup request.
+ **/
 class DatafeedrAmazonLookupRequest extends DatafeedrAmazonRequest
 {
     /**
@@ -854,23 +892,12 @@ class DatafeedrAmazonLookupRequest extends DatafeedrAmazonRequest
         $defaults = array(
             'ResponseGroup' => 'ItemAttributes,Images,OfferFull,BrowseNodes,EditorialReview,VariationSummary',
         );
-        if(isset($params['IdType']) && $params['IdType'] != 'ASIN')
+        if(isset($params['IdType']) && $params['IdType'] != 'ASIN') {
             $defaults['SearchIndex'] = 'All';
-
+        }
         $url = $this->_amazonUrl('ItemLookup', $params, $defaults);
-        $response = $this->_api->apiCall('amazon_search', array('url' => $url));
-        $this->_found = $response['total_found'];
-        return $response['products'];
-    }
-
-    /**
-     * Get a number of found products.
-     *
-     * @return int
-     *
-     **/
-    public function getFoundCount() {
-        return $this->_found;
+        $this->_apiCall('amazon_search', array('url' => $url));
+        return $this->_responseItem('products', array());
     }
 }
 }
@@ -911,10 +938,10 @@ class DatafeedrLimitExceededError extends DatafeedrError
 }
 }
 
+if(!class_exists('DatafeedrHTTPError', false)) {
 /**
  * API error: Unspecified HTTP error.
-**/
-if(!class_exists('DatafeedrHTTPError', false)) {
+ **/
 class DatafeedrHTTPError extends DatafeedrError
 {
 }

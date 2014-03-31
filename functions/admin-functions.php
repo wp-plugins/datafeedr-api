@@ -70,6 +70,14 @@ function dfrapi_admin_messages( $key=false ) {
 			'url'			=> 'admin.php?page=dfrapi_networks',
 			'button_text'	=> __( 'Enter your Affiliate IDs', DFRAPI_DOMAIN )
 		),
+		
+		// Missing affiliate IDs message.
+		'database_rotation' => array(
+			'class' 		=> 'update-nag',
+			'message' 		=> __( '<strong>Datafeedr API Message:</strong> We are currently refreshing our database of 280 million products. This process starts daily at 8:00am GMT and runs for about 20 minutes. During this time you may be unable to query our database.', DFRAPI_DOMAIN ),
+			'url'			=> '',
+			'button_text'	=> __( '', DFRAPI_DOMAIN )
+		),
 	);
 	
 	if ( isset( $messages[$key] ) ) {

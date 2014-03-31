@@ -115,15 +115,23 @@ Search Form CSS
 	margin-left: 3px;
 	border-bottom: 1px #0074a2 dotted;
 	text-decoration: none;
-	display: none;
+	
 }
 
 #dfrapi_search_form > .filter > .help
 {
-	padding: 10px;
+	padding: 20px;
 	background: #FFFFC2;
 	margin: 5px 0 10px 0;
 	color: #444;
+	
+	   -moz-box-shadow: inset 0 4px 4px -4px #B2B17D, inset 0 -4px 4px -4px #B2B17D;
+  	-webkit-box-shadow: inset 0 4px 4px -4px #B2B17D, inset 0 -4px 4px -4px #B2B17D;
+  			box-shadow: inset 0 4px 4px -4px #B2B17D, inset 0 -4px 4px -4px #B2B17D;
+  			
+	border-width: 1px 0 1px 0;
+	border-color: #C2BD6E;
+	border-style: solid;
 }
 
 #dfrapi_search_form > .filter > .help > h3
@@ -133,7 +141,15 @@ Search Form CSS
 	border: 0;
 	font-size: 13px;
 }
-
+#dfrapi_search_form > .filter > .help td
+{
+	font-size: 13px;
+	line-height: 1.3em;
+	padding: 0;
+	margin: 0;
+	font-family: "Open Sans",sans-serif;
+}
+ 
 #dfrapi_search_form > .filter > .help > p
 {
 	margin: 0 0 1em 0;
@@ -144,12 +160,47 @@ Search Form CSS
 
 #dfrapi_search_form > .filter > .help tt { color: #D54E21; }
 
-
 #dfrapi_search_form > .filter > .help > .dfrapi_search_help
 {
 	float: right;
 	text-decoration: none;
+	position: relative;
+	right: -15px;
+	top: -14px;
+	background: #F0F0BC;
+	padding: 5px;
 }
+
+#dfrapi_search_form > .filter > .help > .dfrapi_search_tip
+{
+	background: #79783F;
+	box-shadow: 0 0 5px #C7C67D;
+	margin-bottom: 20px;
+}
+
+#dfrapi_search_form > .filter > .help > .dfrapi_search_tip > .dashicons-lightbulb
+{
+	font-size: 40px;
+	padding-top: 12px;
+	float: left;
+	color: #FFFFC2;
+}
+
+#dfrapi_search_form > .filter > .help > .dfrapi_search_tip > p
+{
+	background: #FFFFF9;
+	padding: 10px;
+	margin-left: 40px;
+	min-height: 40px;
+	font-size: 13px;
+	line-height: 1.4em;
+	font-family: "Open Sans",sans-serif;
+}
+
+
+
+
+
 
 #dfrapi_popup .inline_frame
 {

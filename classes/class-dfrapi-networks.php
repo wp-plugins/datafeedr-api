@@ -328,6 +328,7 @@ if ( ! class_exists( 'Dfrapi_Networks' ) ) {
 				'Adtraction' 			=> 'http://www.datafeedr.com/docs/item/261',
 				'Affiliate4You' 		=> 'http://www.datafeedr.com/docs/item/265',
 				'AffiliateWindow' 		=> 'http://www.datafeedr.com/docs/item/101',
+				'Affiliator' 			=> 'http://www.datafeedr.com/docs/item/270',
 				'Affilinet' 			=> 'http://www.datafeedr.com/docs/item/104',
 				'Avangate' 				=> 'http://www.datafeedr.com/docs/item/188',
 				'AvantLink' 			=> 'http://www.datafeedr.com/docs/item/190',
