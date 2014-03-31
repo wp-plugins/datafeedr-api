@@ -3,7 +3,7 @@
 Contributors: datafeedr.com
 Tags: woocommerce, datafeedr, affiliate products, dfrapi, adrecord, adtraction, affiliate window, affiliate4you, affilinet, avangate, avantlink, belboon, betty mills, bol.com, cj, clickbank, clixgalore, commission factory, commission junction, commission monster, daisycon, dgm, impact radius, linkconnector, linkshare, m4n, onenetworkdirect, paid on results, partner-ads, pepperjam, regnow, revresponse, shareasale, superclix, tradedoubler, tradetracker, webgains, zanox
 Requires at least: 3.8
-Tested up to: 3.9-beta2
+Tested up to: 3.9-beta3
 Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
