@@ -342,6 +342,7 @@ if ( ! class_exists( 'Dfrapi_Networks' ) ) {
 				'Commission Monster' 	=> 'http://www.datafeedr.com/docs/item/109',
 				'Daisycon' 				=> 'http://www.datafeedr.com/docs/item/196',
 				'DGM'					=> 'http://www.datafeedr.com/docs/item/263',
+				'Double.net'			=> 'http://www.datafeedr.com/docs/item/271',
 				'Impact Radius' 		=> 'http://www.datafeedr.com/docs/item/268',
 				'LinkConnector' 		=> 'http://www.datafeedr.com/docs/item/105',
 				'LinkShare' 			=> 'http://www.datafeedr.com/docs/item/60',
