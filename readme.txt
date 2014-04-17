@@ -2,11 +2,11 @@
 
 Contributors: datafeedr.com
 Tags: woocommerce, datafeedr, affiliate products, dfrapi, adrecord, adtraction, affiliate window, affiliate4you, affilinet, avangate, avantlink, belboon, betty mills, bol.com, cj, clickbank, clixgalore, commission factory, commission junction, commission monster, daisycon, dgm, impact radius, linkconnector, linkshare, m4n, onenetworkdirect, paid on results, partner-ads, pepperjam, regnow, revresponse, shareasale, superclix, tradedoubler, tradetracker, webgains, zanox
-Requires at least: 3.8
-Tested up to: 3.9
-Stable tag: 1.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Requires at least: 3.8
+Tested up to: 4.0-alpha
+Stable tag: 1.0.8
 
 Connect to the Datafeedr API.
 
@@ -59,6 +59,9 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 4. Account usage overview
 
 == Changelog ==
+
+= 1.0.9 =
+* Fixed issue where searches with duplicates excluded returned a higher 'found' count than really was there. (#8672)
 
 = 1.0.8 =
 * Added css and mapper link for docs for Double.net.

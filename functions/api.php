@@ -466,7 +466,8 @@ function dfrapi_api_get_products_by_query( $query, $ppp=20, $page=1, $excluded=a
 		$response['excluded'] 		= $excluded;
 		$response['products'] 		= $products;
 		$response['last_status'] 	= $api->lastStatus();
-		$response['found_count'] 	= $search->getFoundCount();
+		//$response['found_count'] 	= $search->getFoundCount(); Old, returned wrong value (#8672)
+		$response['found_count'] 	= $search->getResultCount();
 		$response['params'] 		= $search->getParams();
 	
 		// Return it!
