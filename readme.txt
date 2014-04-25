@@ -60,6 +60,9 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 
 == Changelog ==
 
+= 1.0.10 =
+* Added upgrade.php file to track version changes.
+
 = 1.0.9 =
 * Fixed issue where searches with duplicates excluded returned a higher 'found' count than really was there. (#8672)
 

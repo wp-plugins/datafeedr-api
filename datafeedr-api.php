@@ -8,7 +8,7 @@ Author URI: https://v4.datafeedr.com
 License: GPL v3
 Requires at least: 3.8
 Tested up to: 4.0-alpha
-Version: 1.0.9
+Version: 1.0.10
 
 Datafeedr API Plugin
 Copyright (C) 2014, Datafeedr - eric@datafeedr.com
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * Define constants.
  */
-define( 'DFRAPI_VERSION', 			'1.0.9' );
+define( 'DFRAPI_VERSION', 			'1.0.10' );
 define( 'DFRAPI_URL', 				plugin_dir_url( __FILE__ ) );
 define( 'DFRAPI_PATH', 				plugin_dir_path( __FILE__ ) );
 define( 'DFRAPI_BASENAME', 			plugin_basename( __FILE__ ) );
@@ -81,6 +81,7 @@ function dfrapi_wp_version_notice() {
  * Load files for all pages.
  */
 require_once( DFRAPI_PATH . 'functions/functions.php' );				// Core functions.
+require_once( DFRAPI_PATH . 'functions/upgrade.php' );					// Upgrade functions.
 require_once( DFRAPI_PATH . 'libraries/datafeedr.php' ); 				// Load the Datafeedr API Library.
 require_once( DFRAPI_PATH . 'libraries/zanox_client.php' ); 			// Load the Zanox Client Library.
 require_once( DFRAPI_PATH . 'classes/class-dfrapi-searchform.php' );	// Product search form.
