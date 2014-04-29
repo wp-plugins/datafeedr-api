@@ -405,3 +405,21 @@ function dfrapi_html_output_api_error( $data ) {
 	<?php
 }
 
+function dfrapi_get_total_products_in_db( $formatted=TRUE, $default=0 ) {
+	
+	$account = get_option( 'dfrapi_account' );
+	$product_count = $default;
+	
+	if ( $account ) {
+		if ( isset( $account['product_count'] ) ) {
+			$product_count = intval( $account['product_count'] );
+		}
+	}
+	
+	if ( $formatted && is_int( $product_count ) ) {
+		$product_count = number_format( $product_count );
+	}
+	
+	return $product_count;
+}
+
