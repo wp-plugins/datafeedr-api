@@ -3,7 +3,7 @@
 /**
  * Datafeedr Api Client Library.
  *
- * @version 0.1b.6644
+ * @version 0.1b.6693
  * @copyright Datafeedr 2007 ~ 2013 - All Rights Reserved
  *
  * @mainpage
@@ -56,7 +56,7 @@ class DatafeedrApi
     const DEFAULT_URL = 'http://api.datafeedr.com';
     const DEFAULT_TIMEOUT = 30;
 
-    const VERSION = '0.1b.6644';
+    const VERSION = '0.1b.6693';
 
     /**
      * Constructor.
@@ -328,10 +328,10 @@ class DatafeedrApi
 
     protected function _intarray($id_or_ids) {
         if(is_numeric($id_or_ids)) {
-            return array(intval($id_or_ids));
+            return array($id_or_ids);
         }
         if(is_array($id_or_ids)) {
-            return array_map('intval', $id_or_ids);
+            return $id_or_ids;
         }
         return array();
     }

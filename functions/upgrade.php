@@ -21,4 +21,4 @@ $previous_version = get_option( 'dfrapi_version', FALSE );
  * 
  * Now that any upgrade functions are performed, update version in database.
  */
-add_option( 'dfrapi_version', DFRAPI_VERSION );
+update_option( 'dfrapi_version', DFRAPI_VERSION );
