@@ -115,9 +115,10 @@ a.dfrapi_plan_link
 #dfrapi_networks .group .networks .networks_table tr.network.no_products { }
 #dfrapi_networks .group .networks .networks_table tr.network td.network_checkbox { }
 
-/* Remove this to add Tracking ID input option */
+/* Remove this to add Tracking ID input option 
 #dfrapi_networks .group .networks .networks_table th.tid_head,
 #dfrapi_networks .group .networks .networks_table td.tid_input { display: none; }
+*/
 
 #dfrapi_networks .group .networks .networks_table tr.network td.network_name
 {

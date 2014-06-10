@@ -114,8 +114,8 @@ if ( ! class_exists( 'Dfrapi_Networks' ) ) {
 							<th class="checkbox_head"> &nbsp; </th>
 							<th class="networks_head">' . __( 'Network', DFRAPI_DOMAIN ) . '</th>
 							<th class="type_head">' . __( 'Type', DFRAPI_DOMAIN ) . '</th>
-							<th class="aid_head">' . __( 'Affiliate ID', DFRAPI_DOMAIN ) . ' <a href="' .$this->map_link( $group_name ) .'" target="_blank" title="' . __( 'Learn how to find your affiliate ID from ', DFRAPI_DOMAIN ) . $group_name .'"><img src="' . DFRAPI_URL . 'images/icons/help.png" alt="' . __( 'more info', DFRAPI_DOMAIN ) . '" style="vertical-align: middle" /></th>
-							<th class="tid_head">' . __( 'Tracking ID', DFRAPI_DOMAIN ) . '</th>
+							<th class="aid_head">' . __( 'Affiliate ID', DFRAPI_DOMAIN ) . ' <a href="' .$this->map_link( $group_name ) .'" target="_blank" title="' . __( 'Learn how to find your affiliate ID from ', DFRAPI_DOMAIN ) . $group_name . __( ' (opens in new window).', DFRAPI_DOMAIN ) . '"><img src="' . DFRAPI_URL . 'images/icons/help.png" alt="' . __( 'more info', DFRAPI_DOMAIN ) . '" style="vertical-align: middle" /></a> <small style="font-weight:normal;color:#a00;">(' . __( 'required', DFRAPI_DOMAIN ) . ')</small></th>
+							<th class="tid_head">' . __( 'Tracking ID', DFRAPI_DOMAIN ) . ' <a href="' . DFRAPI_HOME_URL . '/node/1113" target="_blank" title="' . __( 'Learn more about this field (opens in new window).', DFRAPI_DOMAIN ) . '"><img src="' . DFRAPI_URL . 'images/icons/help.png" alt="' . __( 'more info', DFRAPI_DOMAIN ) . '" style="vertical-align: middle" /></a> <small style="font-weight:normal;color:#999;">(' . __( 'optional', DFRAPI_DOMAIN ) . ')</small></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -164,7 +164,7 @@ if ( ! class_exists( 'Dfrapi_Networks' ) ) {
 						}					
 						
 						$html .= '
-						<td class="tid_input"></td>
+						<td class="tid_input"><input type="text" name="dfrapi_networks[ids][' . $network['_id'] . '][tid]" value="' . @$this->options['ids'][$network['_id']]['tid'] . '" class="tid_input_field" /></td>
 					</tr>
 					';
 				}

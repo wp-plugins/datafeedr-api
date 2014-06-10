@@ -194,7 +194,7 @@ function dfrapi_update_transient_whitelist( $option_name ) {
 }
 
 /**
- * Add affiliate ID to an affiliate link.
+ * Add affiliate ID and tracking ID to an affiliate link.
  * 
  * @param $product - An array of a single's product's information.
  */
@@ -206,6 +206,12 @@ function dfrapi_url( $product ) {
 	// Extract the affiliate ID from the $networks array.
 	$affiliate_id = $networks['ids'][$product['source_id']]['aid'];
 	$affiliate_id = apply_filters( 'dfrapi_affiliate_id', $affiliate_id, $product, $networks );
+	$affiliate_id = trim( $affiliate_id );
+	
+	// Extract the Tracking ID from the $networks array.
+	$tracking_id = $networks['ids'][$product['source_id']]['tid'];
+	$tracking_id = apply_filters( 'dfrapi_tracking_id', $tracking_id, $product, $networks );
+	$tracking_id = trim( $tracking_id );
 	
 	// Affiliate ID is missing.  Do action and return empty string.
 	if ( $affiliate_id == '' ) {
@@ -213,12 +219,21 @@ function dfrapi_url( $product ) {
 		return '';
 	}
 	
-	// Set URL and apply filters.
-	$url = $product['url'];
+	// Determine which URL field to get: 'url' OR 'ref_url'. Return 'url' if $tracking_id is empty, otherwise, use 'ref_url'.
+	$url = ( $tracking_id == '' ) ? $product['url'] : $product['ref_url'];
+	
+	// Apply filters to URL before affiliate & tracking ID insertion.
 	$url = apply_filters( 'dfrapi_before_affiliate_id_insertion', $url, $product, $affiliate_id );
-	$affiliate_id = apply_filters( 'dfrapi_filter_affiliate_id', $affiliate_id, $url, $product );	
-	$url = str_replace( "@@@", $affiliate_id, $url );
+	$url = apply_filters( 'dfrapi_before_tracking_id_insertion', $url, $product, $tracking_id );
+
+	// Replace placeholders in URL.	
+	$placeholders = array( "@@@", "###" );
+	$replacements = array( $affiliate_id, $tracking_id );
+	$url = str_replace( $placeholders, $replacements, $url );
+	
+	// Apply filters to URL after affiliate & tracking ID insertion.
 	$url = apply_filters( 'dfrapi_after_affiliate_id_insertion', $url, $product, $affiliate_id );
+	$url = apply_filters( 'dfrapi_after_tracking_id_insertion', $url, $product, $tracking_id );
 	
 	// Return URL
 	return $url;

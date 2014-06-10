@@ -43,8 +43,10 @@ jQuery(function($) {
         var tid = parent.attr('tid');
         if ($(this).prop('checked')) {
             $("#" + id + " .aid_input").children().show();
+            $("#" + id + " .tid_input").children().show();
         } else {
             $("#" + id + " .aid_input").children().hide();
+            $("#" + id + " .tid_input").children().hide();
         }
     }).change();
 
