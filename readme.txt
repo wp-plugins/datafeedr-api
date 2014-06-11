@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
 Tested up to: 4.0-alpha
-Stable tag: 1.0.13
+Stable tag: 1.0.14
 
 Connect to the Datafeedr API.
 
@@ -59,6 +59,9 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 4. Account usage overview
 
 == Changelog ==
+
+= 1.0.14 =
+* Fixed bug introduced by removing dfrapi_filter_affiliate_id filter in v1.0.12 related to Zanox.
 
 = 1.0.13 =
 * Remove BOL from list of supported affiliate networks.

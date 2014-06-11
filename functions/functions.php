@@ -126,8 +126,8 @@ function dfrapi_set_html_content_type() {
  * Modify affiliate ID if product is a Zanox product. 
  * Replaces $affiliate_id with "zmid".
  */
-add_filter( 'dfrapi_filter_affiliate_id', 'dfrapi_get_zanox_zmid', 10, 3 );
-function dfrapi_get_zanox_zmid( $affiliate_id, $url, $product ) {
+add_filter( 'dfrapi_affiliate_id', 'dfrapi_get_zanox_zmid', 10, 3 );
+function dfrapi_get_zanox_zmid( $affiliate_id, $product, $networks ) {
 	if ( isset( $product['source'] ) && preg_match( "/\bZanox\b/", $product['source'] ) ) {
 		$zanox = dfrapi_api_get_zanox_zmid( $product['merchant_id'], $affiliate_id );
     	$affiliate_id = $zanox[0]['zmid'];
