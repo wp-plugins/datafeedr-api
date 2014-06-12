@@ -1,12 +1,12 @@
 === Datafeedr API ===
 
 Contributors: datafeedr.com
-Tags: woocommerce, datafeedr, affiliate products, dfrapi, adrecord, adtraction, affiliate window, affiliate4you, affilinet, avangate, avantlink, belboon, betty mills, cj, clickbank, clixgalore, commission factory, commission junction, commission monster, daisycon, dgm, impact radius, linkconnector, linkshare, m4n, onenetworkdirect, paid on results, partner-ads, pepperjam, regnow, revresponse, shareasale, superclix, tradedoubler, tradetracker, webgains, zanox
+Tags: woocommerce, datafeedr, affiliate products, dfrapi, adrecord, adtraction, affiliate window, affiliate4you, affilinet, avangate, avantlink, belboon, betty mills, cj, clickbank, clixgalore, commission factory, commission junction, daisycon, dgm, impact radius, linkconnector, linkshare, m4n, onenetworkdirect, paid on results, partner-ads, pepperjam, regnow, revresponse, shareasale, superclix, tradedoubler, tradetracker, webgains, zanox
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
 Tested up to: 4.0-alpha
-Stable tag: 1.0.14
+Stable tag: 1.0.15
 
 Connect to the Datafeedr API.
 
@@ -60,11 +60,14 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 
 == Changelog ==
 
+= 1.0.15 =
+* Removed Commission Monster from list of supported affiliate networks.
+
 = 1.0.14 =
 * Fixed bug introduced by removing dfrapi_filter_affiliate_id filter in v1.0.12 related to Zanox.
 
 = 1.0.13 =
-* Remove BOL from list of supported affiliate networks.
+* Removed BOL from list of supported affiliate networks.
 * Changed WP header image.
 
 = 1.0.12 =
