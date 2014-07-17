@@ -143,13 +143,17 @@ function dfrapi_api_get_all_networks( $nids=array() ) {
  * Returns a Zanox zmid value.
  */
 function dfrapi_api_get_zanox_zmid( $merchant_id, $adspace_id ) {
-	$option_name = 'zmid_' . $merchant_id . $adspace_id;
+	$option_name = 'zmid_' . $merchant_id . '_' . $adspace_id;
 	$zanox = get_transient( $option_name );
-	if ( false === $zanox || empty ( $zanox ) ) {
+	if ( $zanox === FALSE || empty ( $zanox ) ) {
 		$api = dfrapi_api( dfrapi_get_transport_method() );
 		try {
 			$zanox_keys = dfrapi_get_zanox_keys();
 			$zanox = $api->getZanoxMerchantIds( $merchant_id, $adspace_id, $zanox_keys['connection_key'] );
+			// If $zanox is empty, that means this user is not approved by this merchant.
+			if ( empty( $zanox ) ) {
+				$zanox = 'dfrapi_unapproved_zanox_merchant';
+			}
 		} catch( Exception $err ) {
 			return dfrapi_api_error( $err );
 		}
@@ -158,7 +162,6 @@ function dfrapi_api_get_zanox_zmid( $merchant_id, $adspace_id ) {
 	dfrapi_update_transient_whitelist( $option_name );
 	return $zanox;
 }
-
 
 /**
  * This creates 2 options in the options table each time the option 

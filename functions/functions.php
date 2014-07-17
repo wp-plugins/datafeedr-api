@@ -130,7 +130,7 @@ add_filter( 'dfrapi_affiliate_id', 'dfrapi_get_zanox_zmid', 10, 3 );
 function dfrapi_get_zanox_zmid( $affiliate_id, $product, $networks ) {
 	if ( isset( $product['source'] ) && preg_match( "/\bZanox\b/", $product['source'] ) ) {
 		$zanox = dfrapi_api_get_zanox_zmid( $product['merchant_id'], $affiliate_id );
-    	$affiliate_id = $zanox[0]['zmid'];
+		$affiliate_id = ( !isset( $zanox[0]['zmid']) ) ? '___MISSING___' : $zanox[0]['zmid'];
 	}
 	return $affiliate_id;
 }
@@ -209,7 +209,7 @@ function dfrapi_url( $product ) {
 	$affiliate_id = trim( $affiliate_id );
 	
 	// Extract the Tracking ID from the $networks array.
-	$tracking_id = $networks['ids'][$product['source_id']]['tid'];
+	$tracking_id = ( isset( $networks['ids'][$product['source_id']]['tid'] ) ) ? $networks['ids'][$product['source_id']]['tid'] : '';
 	$tracking_id = apply_filters( 'dfrapi_tracking_id', $tracking_id, $product, $networks );
 	$tracking_id = trim( $tracking_id );
 	

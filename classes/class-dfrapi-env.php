@@ -32,6 +32,10 @@ if ( ! class_exists( 'Dfrapi_Env' ) ) {
 			if ( self::check_gmt_time() ) {
 				dfrapi_admin_messages( 'database_rotation' );
 			}
+			
+			if ( self::unapproved_zanox_merchants_exist() ) {
+				dfrapi_admin_messages( 'unapproved_zanox_merchants' );
+			}
 		}
 
 		static function api_keys_exist() {
@@ -97,6 +101,15 @@ if ( ! class_exists( 'Dfrapi_Env' ) ) {
 				return true;
 			}
 			return false;
+		}
+		
+		static function unapproved_zanox_merchants_exist() {
+			global $wpdb;
+			$results = $wpdb->get_results( "SELECT option_name FROM $wpdb->options WHERE option_value = 'dfrapi_unapproved_zanox_merchant' ", OBJECT );
+			if ( !empty( $results ) ) {
+				return TRUE;
+			}
+			return FALSE;
 		}
 		
 	} // class Dfrapi_Env

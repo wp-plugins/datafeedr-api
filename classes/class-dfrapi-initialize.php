@@ -112,7 +112,7 @@ class Dfrapi_Initialize {
 			foreach ( $notices as $key => $message ) {
 				$button = ( $message['url'] != '' ) ? dfrapi_fix_button( $message['url'], $message['button_text'] ) : '';
 				$upgrade_account = ( $key == 'usage_over_90_percent' ) ? ' | <a href="' . dfrapi_user_pages( 'change' ) . '?utm_source=plugin&utm_medium=link&utm_campaign=upgradenag">' . __( 'Upgrade', DFRAPI_DOMAIN ) . '</a>' : '';
-				echo '<div class="'.$message['class'].'"><p>'.$message['message'].$button.$upgrade_account.'</p></div>';
+				echo '<div class="'.$message['class'].'">'.$message['message'].$button.$upgrade_account.'</div>';
 			}
 			delete_option( 'dfrapi_admin_notices' );
 		}

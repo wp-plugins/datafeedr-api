@@ -41,12 +41,36 @@ if ( ! class_exists( 'Dfrapi_Tools' ) ) {
 		function output() {
 			echo '<div class="wrap" id="' . $this->key . '">';
 			echo '<h2>' . dfrapi_setting_pages( $this->page ) . ' &#8212; Datafeedr API</h2>';
-			echo '<form method="post" action="options.php">';
-			wp_nonce_field( 'update-options' );
+			?>
+			
+			<script>
+			jQuery(function($) {
+			
+				$('#dfrapi_delete_cached_api_data').on('click',function(e) {
+					$("#dfrapi_delete_cached_api_data_result").hide();
+					$("#dfrapi_delete_cached_api_data").text('<?php _e("Deleting...", DFRAPI_DOMAIN); ?>').addClass('button-disabled');
+					$.ajax({
+						type: "POST",
+						url: "<?php echo admin_url( 'admin-ajax.php' ); ?>",
+						data: {
+							action: "dfrapi_delete_cached_api_data",
+							dfrapi_security: "<?php echo wp_create_nonce( 'dfrapi_ajax_nonce' ); ?>"
+						}
+					}).done(function(html) {
+						$("#dfrapi_delete_cached_api_data").text('<?php _e("Delete Cached API Data", DFRAPI_DOMAIN); ?>').removeClass('button-disabled');
+						$("#dfrapi_delete_cached_api_data_result").show().html(html);
+			
+					});
+					e.preventDefault();
+				}); // $('#dfrapi_delete_cached_api_data').on('click',function(e) {	
+				
+			}); // jQuery(function($) {
+			</script>
+			
+			<?php
+
 			settings_fields( $this->page );
 			do_settings_sections( $this->page);
-			submit_button();
-			echo '</form>';		
 			echo '</div>';
 		}
 	
@@ -55,45 +79,18 @@ if ( ! class_exists( 'Dfrapi_Tools' ) ) {
 		
 			// Delete transient data.
 			add_settings_section( 'delete_transient_data', __( 'Delete Cached API Data', DFRAPI_DOMAIN ), array( &$this, 'section_delete_transient_data_desc' ), $this->page );
-			add_settings_field( 'delete_transient_data_checkbox', __( 'Delete Cached API Data', DFRAPI_DOMAIN ), array( &$this, 'field_delete_transient_data_checkbox' ), $this->page, 'delete_transient_data' );
 		}
 	
-		function section_delete_transient_data_desc() { 
-			echo __( 'Select <strong>Yes</strong> below and click <strong>[Save Changes]</strong> to delete all cached API data. Deleting cached data will not affect your store, however, it will require multiple API requests in order to re-build the data. Typically, you only delete cached data when Datafeedr Support instructs you to do so.', DFRAPI_DOMAIN );
-		}
-
-		function field_delete_transient_data_checkbox() {
-			?>
-			<input type="checkbox" name="<?php echo $this->key; ?>[delete_transient_data_checkbox]" value="on" /> <?php _e( 'Yes', DFRAPI_DOMAIN ); ?>
+		function section_delete_transient_data_desc() { ?>
+			<p><?php _e( 'Deleting cached data will not affect your store, however, it will require multiple API requests in order to re-build the data. Typically, you only delete cached data when Datafeedr Support instructs you to do so.', DFRAPI_DOMAIN ); ?></p>
+			<p><a href="#" id="dfrapi_delete_cached_api_data" class="button"><?php _e("Delete Cached API Data", DFRAPI_DOMAIN); ?></a></p>
+			<div id="dfrapi_delete_cached_api_data_result" style="padding: 10px; border: 1px solid silver; display: none; background: #FFF; color: green;"></div>
+			<hr />
 			<?php
 		}
 		
 		function validate( $input ) {
-		
-			if ( !isset( $input ) || !is_array( $input ) || empty( $input ) ) { return $input; }
-			
-			foreach( $input as $key => $value ) {
-			
-				// Delete transient data.
-				if ( $key == 'delete_transient_data_checkbox' && $value == 'on' ) {
-					// Only delete if user has API requests remaining. This is because we'll need to make 1 request to rebuild 'dfrapi_account'.
-					$status = dfrapi_api_get_status();
-					if ( !array_key_exists( 'dfrapi_api_error', $status ) ) {
-						delete_option( 'dfrapi_account' );
-						$transient_options = get_option( 'dfrapi_transient_whitelist' );
-						if ( !empty( $transient_options ) ) {
-							foreach ( $transient_options as $name ) {
-								delete_transient( $name );
-							}
-						}
-						// Update account status immediately in case there are not enough API
-						// requests remaining in order to do so later.
-						$status = dfrapi_api_get_status();
-						update_option( 'dfrapi_account', $status );
-					}
-				} // END Delete transient data.
-		
-			} // END foreach( $input as $key => $value ) {
+			return $input;
 		}
 		
 	} // class Dfrapi_Tools

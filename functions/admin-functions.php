@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * Load AJAX related functions.
+ */
+require_once( DFRAPI_PATH . 'functions/ajax.php' );
+
+/**
  * These are the Admin pages associated with the Datafeedr API plugin.
  * 
  * These are called from their respecitive classes.
@@ -24,8 +29,7 @@ function dfrapi_setting_pages( $key=false ) {
 }
 
 /**
- * This stores messages to be displayed using the 
- * 'admin_notices' action.
+ * This stores messages to be displayed using the 'admin_notices' action.
  */
 function dfrapi_admin_messages( $key=false ) {
 	
@@ -71,10 +75,26 @@ function dfrapi_admin_messages( $key=false ) {
 			'button_text'	=> __( 'Enter your Affiliate IDs', DFRAPI_DOMAIN )
 		),
 		
-		// Missing affiliate IDs message.
+		// Database rotation message.
 		'database_rotation' => array(
 			'class' 		=> 'update-nag',
-			'message' 		=> __( '<strong>Datafeedr API Message:</strong> We are currently refreshing our database of 280 million products. This process starts daily at 8:00am GMT and runs for about 20 minutes. During this time you may be unable to query our database.', DFRAPI_DOMAIN ),
+			'message' 		=> __( '<strong>Datafeedr API Message:</strong> We are currently refreshing our database of 270 million products. This process starts daily at 8:00am GMT and runs for about 20 minutes. During this time you may be unable to query our database.', DFRAPI_DOMAIN ),
+			'url'			=> '',
+			'button_text'	=> __( '', DFRAPI_DOMAIN )
+		),
+		
+		// Unapproved Zanox merchant(s) message.
+		'unapproved_zanox_merchants' => array(
+			'class' 		=> 'update-nag',
+			'message' 		=> '<strong>' . __( 'Unapproved Zanox Merchant(s):', DFRAPI_DOMAIN ) . '</strong> ' . 
+								__( 'It appears you are not approved by one or more Zanox merchants you have selected. Please remove unapproved Zanox merchants from your ', DFRAPI_DOMAIN ) . 
+								'<a href="' . admin_url( 'admin.php?page=dfrapi_merchants' ) . '" target="_blank">' . 
+								__( 'Zanox merchant selection', DFRAPI_DOMAIN ) .  
+								'</a>' . 
+								__( ' then delete your cached API data ', DFRAPI_DOMAIN ) . 
+								'<a href="' . admin_url( 'admin.php?page=dfrapi_tools' ) . '" target="_blank">' . 
+								__( 'here', DFRAPI_DOMAIN ) .  
+								'</a>.',
 			'url'			=> '',
 			'button_text'	=> __( '', DFRAPI_DOMAIN )
 		),

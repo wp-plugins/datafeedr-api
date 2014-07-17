@@ -5,8 +5,8 @@ Tags: woocommerce, datafeedr, affiliate products, dfrapi, adrecord, adtraction, 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
-Tested up to: 4.0-alpha
-Stable tag: 1.0.15
+Tested up to: 4.0-beta1
+Stable tag: 1.0.16
 
 Connect to the Datafeedr API.
 
@@ -59,6 +59,14 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 4. Account usage overview
 
 == Changelog ==
+
+= 1.0.16 =
+* Fixed undefined 'tid' index.
+* Changed the 'delete cached api data' tool from checkbox to ajax button.
+* Display notice if a user has selected a Zanox merchant which has not approved their account. This prevents many extra API requests from being generated. (#9474)
+* Removed <p> tags for nags.
+* Added ajax.php file to handle... um... AJAX stuff.
+* Add "___MISSING___" to Zanox URLs if affiliate ID is missing.
 
 = 1.0.15 =
 * Removed Commission Monster from list of supported affiliate networks.
