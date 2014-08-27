@@ -1,11 +1,11 @@
 === Datafeedr API ===
 
 Contributors: datafeedr.com
-Tags: woocommerce, datafeedr, affiliate products, dfrapi, adrecord, adtraction, affiliate window, affiliate4you, affilinet, avangate, avantlink, belboon, betty mills, cj, clickbank, clixgalore, commission factory, commission junction, daisycon, dgm, impact radius, linkconnector, linkshare, m4n, onenetworkdirect, paid on results, partner-ads, pepperjam, regnow, revresponse, shareasale, superclix, tradedoubler, tradetracker, webgains, zanox
+Tags: woocommerce, datafeedr, affiliate products, dfrapi, adrecord, adtraction, affiliate window, affiliate4you, affilinet, avangate, avantlink, belboon, betty mills, cj, clickbank, clixgalore, commission factory, commission junction, daisycon, dgm, impact radius, linkconnector, linkshare, onenetworkdirect, paid on results, partner-ads, pepperjam, mycommerce, revresponse, shareasale, superclix, tradedoubler, tradetracker, webgains, zanox
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
-Tested up to: 4.0-beta1
+Tested up to: 4.0-RC1
 Stable tag: 1.0.16
 
 Connect to the Datafeedr API.
@@ -59,6 +59,12 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 4. Account usage overview
 
 == Changelog ==
+
+= 1.0.17 =
+* Removed M4N from tags in readme.txt file.
+* Changed RegNow to MyCommerce in readme file.
+* Added MyCommerce icons.
+* Added plugin icon for WordPress 4.0+.
 
 = 1.0.16 =
 * Fixed undefined 'tid' index.
