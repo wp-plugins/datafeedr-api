@@ -347,6 +347,7 @@ if ( ! class_exists( 'Dfrapi_Networks' ) ) {
 				'LinkConnector' 		=> 'http://www.datafeedr.com/docs/item/105',
 				'LinkShare' 			=> 'http://www.datafeedr.com/docs/item/60',
 				'M4N' 					=> 'http://www.datafeedr.com/docs/item/198',
+				'MyCommerce' 			=> 'http://www.datafeedr.com/docs/item/111',
 				'OneNetworkDirect' 		=> 'http://www.datafeedr.com/docs/item/112',
 				'Paid on Results' 		=> 'http://www.datafeedr.com/docs/item/189',
 				'Partner-ads' 			=> 'http://www.datafeedr.com/docs/item/262',

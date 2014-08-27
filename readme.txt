@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
 Tested up to: 4.0-RC1
-Stable tag: 1.0.17
+Stable tag: 1.0.18
 
 Connect to the Datafeedr API.
 
@@ -59,6 +59,10 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 4. Account usage overview
 
 == Changelog ==
+
+= 1.0.18 =
+* Added MyCommerce to css file.
+* Added link to docs for MyCommerce.
 
 = 1.0.17 =
 * Removed M4N from tags in readme.txt file.
