@@ -34,6 +34,9 @@ The *Datafeedr API* plugin was built to be extended. The *Datafeedr API* plugin 
 
 Additionally, we have written plugins that integrate the *Datafeedr API* plugin with WooCommerce. More extensions are on the way...
 
+**Requirements**
+
+* PHP's `CURL` support must be enabled.
 
 == Installation ==
 
