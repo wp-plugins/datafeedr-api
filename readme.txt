@@ -5,8 +5,8 @@ Tags: woocommerce, datafeedr, affiliate products, dfrapi, adrecord, adtraction, 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
-Tested up to: 4.0
-Stable tag: 1.0.19
+Tested up to: 4.1-beta1
+Stable tag: 1.0.20
 
 Connect to the Datafeedr API.
 
@@ -62,6 +62,9 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 4. Account usage overview
 
 == Changelog ==
+
+= 1.0.20 =
+* Just updating readme.
 
 = 1.0.19 =
 * Added FlipKart support.
