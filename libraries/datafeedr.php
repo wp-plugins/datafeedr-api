@@ -3,8 +3,8 @@
 /**
  * Datafeedr Api Client Library.
  *
- * @version 0.1b.6693
- * @copyright Datafeedr 2007 ~ 2013 - All Rights Reserved
+ * @version 0.1b.6928
+ * @copyright Datafeedr 2007 ~ 2014 - All Rights Reserved
  *
  * @mainpage
  *
@@ -56,7 +56,7 @@ class DatafeedrApi
     const DEFAULT_URL = 'http://api.datafeedr.com';
     const DEFAULT_TIMEOUT = 30;
 
-    const VERSION = '0.1b.6693';
+    const VERSION = '0.1b.6928';
 
     /**
      * Constructor.
@@ -256,6 +256,16 @@ class DatafeedrApi
     **/
     public function searchRequest() {
         return new DatafeedrSearchRequest($this);
+    }
+
+    /**
+     * Create a new DatafeedrMerchantSearchRequest object.
+     *
+     * @return DatafeedrMerchantSearchRequest
+     *
+    **/
+    public function merchantSearchRequest() {
+        return new DatafeedrMerchantSearchRequest($this);
     }
 
     /**
@@ -642,7 +652,6 @@ class DatafeedrSearchRequest extends DatafeedrSearchRequestBase
         return $this;
     }
 
-
     /**
      * Get found networks.
      *
@@ -724,6 +733,162 @@ class DatafeedrSearchRequest extends DatafeedrSearchRequestBase
 }
 }
 
+if(!class_exists('DatafeedrMerchantSearchRequest', false)) {
+/**
+ * Search request for Datafeedr Merchants.
+ **/
+class DatafeedrMerchantSearchRequest extends DatafeedrSearchRequestBase
+{
+    /**
+     * Constructor.
+     *
+     * @param object $api DatafeedrApi object.
+     *
+     **/
+    public function __construct($api) {
+        parent::__construct($api);
+
+        $this->_query       = array();
+        $this->_sort        = array();
+        $this->_fields      = array();
+        $this->_limit       = 0;
+        $this->_offset      = 0;
+    }
+
+    /**
+     * Add a query filter.
+     *
+     * @param  string $filter Query filter.
+     * @return $this
+     *
+     **/
+    public function addFilter($filter) {
+        $this->_query []= $filter;
+        return $this;
+    }
+
+    /**
+     * Add a sort field.
+     *
+     * @param  string $field   Field name.
+     * @param int $order One of DatafeedrApi::SORT_ASCENDING or DatafeedrApi::SORT_DESCENDING
+     * @throws DatafeedrError
+     * @return $this
+     *
+     **/
+    public function addSort($field, $order = DatafeedrApi::SORT_ASCENDING) {
+        if(strlen($field) && ($field[0] == '+' || $field[0] == '-')) {
+            $this->_sort []= $field;
+        } else if($order == DatafeedrApi::SORT_ASCENDING) {
+            $this->_sort []= '+' . $field;
+        } else if($order == DatafeedrApi::SORT_DESCENDING) {
+            $this->_sort []= '-' . $field;
+        } else {
+            throw new DatafeedrError("Invalid sort order");
+        }
+        return $this;
+    }
+
+    /**
+     * Set which fields to retrieve.
+     *
+     * @param  array $fields List of field names.
+     * @return $this
+     *
+     **/
+    public function setFields($fields) {
+        $this->_fields = $fields;
+        return $this;
+    }
+
+    /**
+     * Set a limit.
+     *
+     * @param  int $limit The limit.
+     * @return $this
+     *
+     **/
+    public function setLimit($limit) {
+        $this->_limit = $limit;
+        return $this;
+    }
+
+    /**
+     * Set an offset.
+     *
+     * @param  int $offset The offset.
+     * @return $this
+     *
+     **/
+    public function setOffset($offset) {
+        $this->_offset = $offset;
+        return $this;
+    }
+
+    /**
+     * Get found networks.
+     *
+     * @return array
+     *
+     **/
+    public function getNetworks() {
+        return $this->_responseItem('networks', array());
+    }
+
+    /**
+     * Get found merchants.
+     *
+     * @return array
+     *
+     **/
+    public function getMerchants() {
+        return $this->_responseItem('merchants', array());
+    }
+
+    /**
+     * Run search and return a list of merchants.
+     *
+     * @throws DatafeedrError
+     * @return array
+     *
+     **/
+    public function execute() {
+        $params = $this->getParams();
+        if(!isset($params['query'])) {
+            throw new DatafeedrError("Query can't be empty");
+        }
+        $this->_apiCall('merchant_search', $params);
+        return $this->_responseItem('merchants', array());
+    }
+
+    /**
+     * Create a request object to use with the API.
+     *
+     * @return array
+     *
+     **/
+    public function getParams() {
+        $request = array();
+        if($this->_query) {
+            $request['query'] = $this->_query;
+        }
+        if($this->_sort) {
+            $request['sort'] = $this->_sort;
+        }
+        if($this->_fields) {
+            $request['fields'] = $this->_fields;
+        }
+        if($this->_limit) {
+            $request['limit'] = $this->_limit;
+        }
+        if($this->_offset) {
+            $request['offset'] = $this->_offset;
+        }
+        return $request;
+    }
+}
+}
+
 if(!class_exists('DatafeedrAmazonRequest', false)) {
 /**
  * Generic Amazon request.
@@ -735,11 +900,14 @@ class DatafeedrAmazonRequest extends DatafeedrSearchRequestBase
     const AWS_VERSION = "2011-08-01";
 
     /**
-     * Constructor.
+     * Constructor
      *
-     * @param object $api DatafeedrApi object.
-     *
-    **/
+     * @param object $api              DatafeedrApi object.
+     * @param string $awsAccessKeyId   Amazon access key.
+     * @param string $awsSecretKey     Amazon secret key.
+     * @param string $awsAssociateTag  Amazon associate tag.
+     * @param string $locale           Amazon locale (two-letter code).
+     */
     public function __construct($api, $awsAccessKeyId,  $awsSecretKey, $awsAssociateTag, $locale="US") {
         parent::__construct($api);
         $this->_hosts = array(
