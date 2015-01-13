@@ -260,20 +260,51 @@ function dfrapi_output_api_error( $data ) {
 
 /**
  * Convert a currency code to sign. USD => $
+ * 
+ * @https://github.com/pelle/bux/blob/master/src/bux/currencies.clj
+ * 
+ * Currently supported currencies:
+ * 
+ * AUD	Australia	&#36;
+ * BRL	Brazil	R$
+ * CAD	Canada	&#36;
+ * CHF	Switzerland	Fr
+ * DKK	Denmark	kr
+ * EUR	Belgium	&euro;
+ * EUR	Finland	&euro;
+ * EUR	France	&euro;
+ * EUR	Germany	&euro;
+ * EUR	Ireland	&euro;
+ * EUR	Italy	&euro;
+ * EUR	Netherlands	&euro;
+ * EUR	Spain	&euro;
+ * GBP	United Kingdom	&pound;
+ * INR	India	&#8377;
+ * NOK	Norway	kr
+ * NZD	New Zealand	&#36;
+ * PLN	Poland	zł
+ * SEK	Sweden	kr
+ * TRY	Turkey	&#8356;
+ * USD	United States	&#36;
+ * 
  */
 function dfrapi_currency_code_to_sign( $code ) {
+	
 	$map = array(
-		'USD' => '&#36;',
-		'GBP' => '&pound;',
-		'EUR' => '&euro;',
-		'CAD' => '&#36;',
 		'AUD' => '&#36;',
+		'BRL' => 'R$',
+		'CAD' => '&#36;',
+		'CHF' => 'Fr',
 		'DKK' => 'kr',
-		'SEK' => 'kr',
+		'EUR' => '&euro;',
+		'GBP' => '&pound;',
+		'INR' => '&#8377;',
 		'NOK' => 'kr',
-		'CHF' => 'CHF',
 		'NZD' => '&#36;',
+		'PLN' => 'zł',
+		'SEK' => 'kr',
 		'TRY' => '&#8356;',
+		'USD' => '&#36;',
 	);
 	
 	$map = apply_filters( 'dfrapi_currency_sign_mapper', $map );
