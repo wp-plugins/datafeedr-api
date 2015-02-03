@@ -90,7 +90,7 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 * Fixed undefined 'tid' index.
 * Changed the 'delete cached api data' tool from checkbox to ajax button.
 * Display notice if a user has selected a Zanox merchant which has not approved their account. This prevents many extra API requests from being generated. (#9474)
-* Removed <p> tags for nags.
+* Removed p tags for nags.
 * Added ajax.php file to handle... um... AJAX stuff.
 * Add "___MISSING___" to Zanox URLs if affiliate ID is missing.
 
