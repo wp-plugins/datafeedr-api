@@ -429,7 +429,10 @@ function dfrapi_api_get_products_by_query( $query, $ppp=20, $page=1, $excluded=a
 	
 		// Get filters
 		$filters = dfrapi_api_query_to_filters( $query );
-			
+        if(isset($filters['error'])) {
+            throw new DatafeedrError($filters['error'], 0);
+        }
+
 		// Loop thru filters.
 		foreach ( $filters as $filter ) {
 			$search->addFilter( $filter );
