@@ -5,8 +5,8 @@ Tags: woocommerce, datafeedr, affiliate products, dfrapi, adrecord, adtraction, 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
-Tested up to: 4.1.1
-Stable tag: 1.0.23
+Tested up to: 4.2-beta4
+Stable tag: 1.0.24
 
 Connect to the Datafeedr API.
 
@@ -62,6 +62,11 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 4. Account usage overview
 
 == Changelog ==
+
+= 1.0.24 - 2015/04/06 =
+* Added new icon to admin menu.
+* Added new 128x128 and 256x256 plugin icons.
+* Fixed broken URL to admin menu icons that have existed since the beginning of time.
 
 = 1.0.23 =
 * Fixed wrong error message when the merchant filter is added to the search form but no merchants are selected.

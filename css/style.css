@@ -1,20 +1,21 @@
-/* Add "df" icon to admin pages */
+/* Add icon to admin pages */
 @font-face {
-	font-family: 'datafeedr';
-	src: url('../assets/fonts/datafeedr.eot'); /* this is for IE */
-}
-@font-face {
-	font-family: 'datafeedr';
-	src: url(data:application/font-woff;charset=utf-8;base64,xxx...) format('woff'), 
-	url(data:application/x-font-ttf;charset=utf-8;base64,xxx...) format('truetype');
-	font-weight: normal;
-	font-style: normal;
+	font-family:datafeedr;
+	src:url(../assets/fonts/datafeedr.eot);
+	src:url(../assets/fonts/datafeedr.eot?#iefix) format("embedded-opentype"),
+		url(../assets/fonts/datafeedr.woff) format("woff"),
+		url(../assets/fonts/datafeedr.ttf) format("truetype"),
+		url(../assets/fonts/datafeedr.svg#datafeedr) format("svg");
+	font-weight:400;
+	font-style:normal
 }
 
-#adminmenu #toplevel_page_dfrapi.menu-icon-generic div.wp-menu-image:before {
-	font-family: 'datafeedr' !important;
-	content: 'dr';
+#adminmenu #toplevel_page_dfrapi .menu-icon-generic div.wp-menu-image:before {
+	font-family: datafeedr !important;
+	content: "\e600" !important;
+	font-size: 1.3em !important;
 }
+
 
 
 .dfrapi_hide_label { display: none; }
