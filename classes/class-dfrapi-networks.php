@@ -216,7 +216,9 @@ if ( ! class_exists( 'Dfrapi_Networks' ) ) {
 		 */
 		function get_zanox_adspaces() {
 			$option_name = 'dfrapi_zanox_adspaces';
+			$use_cache = wp_using_ext_object_cache( false );
 			$adspaces = get_transient( $option_name );
+			wp_using_ext_object_cache( $use_cache );
 			if ( false === $adspaces || empty ( $adspaces ) ) {
 				$zanox_keys = dfrapi_get_zanox_keys();
 				if ( !$zanox_keys ) {
@@ -227,7 +229,9 @@ if ( ! class_exists( 'Dfrapi_Networks' ) ) {
 					if ( $client->error() ) {
 						return array( 'zanox_error' => $client->error() );
 					} else {
+						$use_cache = wp_using_ext_object_cache( false );
 						set_transient( $option_name, $adspaces, HOUR_IN_SECONDS );
+						wp_using_ext_object_cache( $use_cache );
 					}
 				}				
 			}

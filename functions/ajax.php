@@ -18,7 +18,9 @@ function dfrapi_delete_cached_api_data() {
 		$transient_options = get_option( 'dfrapi_transient_whitelist' );
 		if ( !empty( $transient_options ) ) {
 			foreach ( $transient_options as $name ) {
+				$use_cache = wp_using_ext_object_cache( false );
 				delete_transient( $name );
+				wp_using_ext_object_cache( $use_cache );
 			}
 		}
 		// Update account status immediately in case there are not enough API
