@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
 Tested up to: 4.3-alpha
-Stable tag: 1.0.26
+Stable tag: 1.0.27
 
 Connect to the Datafeedr API.
 
@@ -62,6 +62,9 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 4. Account usage overview
 
 == Changelog ==
+
+= 1.0.27 - 2015/07/02 =
+* Added new DatafeedrServerError class to the datafeedr.php library file. (#11199)
 
 = 1.0.26 - 2015/06/30 =
 * Removed DGM and replaced with APD affiliate network. Added APD network logos.

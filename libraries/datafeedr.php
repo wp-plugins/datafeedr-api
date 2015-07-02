@@ -3,7 +3,7 @@
 /**
  * Datafeedr Api Client Library.
  *
- * @version 0.1b.6928
+ * @version 0.1b.7242
  * @copyright Datafeedr 2007 ~ 2014 - All Rights Reserved
  *
  * @mainpage
@@ -56,7 +56,7 @@ class DatafeedrApi
     const DEFAULT_URL = 'http://api.datafeedr.com';
     const DEFAULT_TIMEOUT = 30;
 
-    const VERSION = '0.1b.6928';
+    const VERSION = '0.1b.7242';
 
     /**
      * Constructor.
@@ -83,7 +83,7 @@ class DatafeedrApi
             3 => 'DatafeedrLimitExceededError',
             4 => 'DatafeedrQueryError',
             7 => 'DatafeedrExternalError',
-            9 => 'DatafeedrError',
+            9 => 'DatafeedrServerError',
         );
 
         $this->_url = self::DEFAULT_URL;
@@ -1129,6 +1129,15 @@ if(!class_exists('DatafeedrExternalError', false)) {
  * API error: External service error.
 **/
 class DatafeedrExternalError extends DatafeedrError
+{
+}
+}
+
+if(!class_exists('DatafeedrServerError', false)) {
+/**
+ * API error: Internal server error.
+**/
+class DatafeedrServerError extends DatafeedrError
 {
 }
 }
