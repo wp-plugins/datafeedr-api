@@ -1,12 +1,12 @@
 === Datafeedr API ===
 
 Contributors: datafeedr.com
-Tags: woocommerce, datafeedr, affiliate products, dfrapi, adrecord, adtraction, affiliate window, affiliate4you, affilinet, amazon local, APD, avangate, avantlink, belboon, betty mills, cj, clickbank, clixgalore, commission factory, commission junction, daisycon, flipkart, impact radius, linkconnector, linkshare, onenetworkdirect, paid on results, partner-ads, pepperjam, mycommerce, revresponse, shareasale, superclix, tradedoubler, tradetracker, webgains, zanox
+Tags: woocommerce, datafeedr, affiliate products, dfrapi, adrecord, adtraction, affiliate window, affiliate4you, affilinet, amazon local, APD, avangate, avantlink, belboon, betty mills, cj, clickbank, clixgalore, commission factory, commission junction, daisycon, flipkart, impact radius, linkconnector, linkshare, onenetworkdirect, optimise, paid on results, partner-ads, pepperjam, mycommerce, revresponse, shareasale, superclix, tradedoubler, tradetracker, webgains, zanox
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
-Tested up to: 4.3-beta
-Stable tag: 1.0.27
+Tested up to: 4.3
+Stable tag: 1.0.28
 
 Connect to the Datafeedr API.
 
@@ -62,6 +62,9 @@ Our support area can be found here: [https://v4.datafeedr.com/support](https://v
 4. Account usage overview
 
 == Changelog ==
+
+= 1.0.28 - 2015/08/12 =
+* Added support for new affiliate network Optimise. (#11221)
 
 = 1.0.27 - 2015/07/02 =
 * Added new DatafeedrServerError class to the datafeedr.php library file. (#11199)

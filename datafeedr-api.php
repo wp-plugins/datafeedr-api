@@ -7,11 +7,11 @@ Author: datafeedr.com
 Author URI: https://v4.datafeedr.com
 License: GPL v3
 Requires at least: 3.8
-Tested up to: 4.3-beta
-Version: 1.0.27
+Tested up to: 4.3
+Version: 1.0.28
 
 Datafeedr API Plugin
-Copyright (C) 2014, Datafeedr - eric@datafeedr.com
+Copyright (C) 2015, Datafeedr - help@datafeedr.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * Define constants.
  */
-define( 'DFRAPI_VERSION', 			'1.0.27' );
+define( 'DFRAPI_VERSION', 			'1.0.28' );
 define( 'DFRAPI_URL', 				plugin_dir_url( __FILE__ ) );
 define( 'DFRAPI_PATH', 				plugin_dir_path( __FILE__ ) );
 define( 'DFRAPI_BASENAME', 			plugin_basename( __FILE__ ) );
